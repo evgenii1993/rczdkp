@@ -19,7 +19,7 @@ const App = () => {
         <Navbar />
         <div className={s.content}>
 
-          <Route path='/dialogs' component={Dialogs} />
+          <Route exact path='/dialogs' component={Dialogs} />
           <Route path='/profile' component={Profile} />
           <Route path='/setting' component={Setting} />
           <Route path='/news' component={News} />
@@ -28,7 +28,7 @@ const App = () => {
         </div>
 
       </div>
-    </BrowserRouter >
+    </BrowserRouter>
   );
 }
 

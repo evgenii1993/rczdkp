@@ -3,6 +3,14 @@ import s from './MyPost.module.css';
 import Post from './Post/Post';
 
 const MyPost = () => {
+    let posts = [
+        {message: "Hi!", countLike: "12"},
+        {message: "Hi?", countLike: "2"},
+        {message: "J_J", countLike: "1"},
+        {message: "J_J", countLike: "3"}
+    ];
+
+    let postsElements = posts.map(post => <Post message={post.message} countLike={post.countLike}/>);
     return (
         <div className={s.myPost}>
             <div>
@@ -12,9 +20,7 @@ const MyPost = () => {
                     <button className="add post">Add</button>
                 </div>
                 <div>
-                    <Post message="Hi!" countLike="12"/>
-                    <Post message="Hi?" countLike="2"/>
-                    <Post message="J_J"countLike="1"/>
+                    {postsElements}
                 </div>
             </div>
         </div>

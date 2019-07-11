@@ -2,26 +2,33 @@ import React from "react";
 import s from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 const Dialogs = (props) => {
+    let friends = [
+        {id: "1", name: "Egor"},
+        {id: "2", name: "Oksana"},
+        {id: "3", name: "Galina"},
+        {id: "4", name: "Oleg"}
+    ];
+    let messages = [
+        {text: "Hi"},
+        {text: "Hi!"},
+        {text: "I'm smart man and i get everything"}
+    ];
+    let friendsElements = 
+        friends.map(friend => { return (
+            <div className={s.dialog}>
+                <NavLink to={"/dialog/" + friend.id}>{friend.name}</NavLink>
+            </div>);
+        });
+    let messagesElements = messages.map(message => <div className={s.message}>{message.text}</div>);
+
+    
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/1">Egor</NavLink>
-                    </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/2">Oksana</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/3">Galina</NavLink>
-                    </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/4">Oleg</NavLink>
-                    </div>
+                {friendsElements}
             </div>
             <div className={s.messages}>
-                <div className={s.message}>Hi</div>
-                <div className={s.message}>Hi!</div>
-                <div className={s.message}>I'm smart man and i get everything</div>
+                {messagesElements}
             </div>
         </div>
     );

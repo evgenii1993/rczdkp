@@ -3,6 +3,12 @@ import s from './Profile.module.css';
 import MyPost from './MyPosts/MyPost';
 
 const Profile = () => {
+    let posts = [
+        {message: "Hi!", countLike: "12"},
+        {message: "Hi?", countLike: "2"},
+        {message: "J_J", countLike: "1"},
+        {message: "J_J", countLike: "3"}
+    ];
     return (
         <div>
             <div>
@@ -12,7 +18,7 @@ const Profile = () => {
                 ava + description
             </div>
             <div>
-                <MyPost />
+                <MyPost posts={posts}/>
             </div>
         </div>
     );

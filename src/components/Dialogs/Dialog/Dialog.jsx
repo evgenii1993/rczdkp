@@ -5,9 +5,9 @@ const Dialogs = (props) => {
     
     
     let friendsElements = 
-        props.friends.map(friend => { return (
+        props.dialogs.map(dialog => { return (
             <div className={s.dialog}>
-                <NavLink to={"/dialog/" + friend.id}>{friend.name}</NavLink>
+                <NavLink to={"/dialog/" + dialog.id}>{dialog.name}</NavLink>
             </div>);
         });
 

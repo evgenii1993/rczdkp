@@ -2,13 +2,8 @@ import React from 'react';
 import s from './Profile.module.css';
 import MyPost from './MyPosts/MyPost';
 
-const Profile = () => {
-    let posts = [
-        {message: "Hi!", countLike: "12"},
-        {message: "Hi?", countLike: "2"},
-        {message: "J_J", countLike: "1"},
-        {message: "J_J", countLike: "3"}
-    ];
+const Profile = (props) => {
+    
     return (
         <div>
             <div>
@@ -18,7 +13,7 @@ const Profile = () => {
                 ava + description
             </div>
             <div>
-                <MyPost posts={posts}/>
+                <MyPost posts={props.posts}/>
             </div>
         </div>
     );

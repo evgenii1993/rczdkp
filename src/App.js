@@ -10,17 +10,17 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className={s.appWrapper}>
-
+      
         <Header />
         <Navbar />
         <div className={s.content}>
 
-          <Route exact path='/dialogs' component={Dialogs} />
-          <Route path='/profile' component={Profile} />
+          <Route exact path='/dialogs' render={() => <Dialogs messages={props.messages} friends={props.friends}/>} />
+          <Route path='/profile' render={() => <Profile posts={props.posts} />} />
           <Route path='/setting' component={Setting} />
           <Route path='/news' component={News} />
           <Route path='/music' component={Music} />

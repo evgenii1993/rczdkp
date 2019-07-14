@@ -11,7 +11,7 @@ const MyPost = (props) => {
 
     let addPost = () => {
         let newMessage = refPost.current.value;
-        console.log(newMessage); 
+        props.addPost(newMessage);
     }
     return (
         <div className={s.myPost}>

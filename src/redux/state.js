@@ -30,4 +30,12 @@ let state = {
 
 };
 
+export let addPost = (message) => {
+    let post = {
+        message: message,
+        countLike: 0
+    };
+    state.profilePage.posts.push(post);
+}
+
 export default state;

@@ -1,3 +1,5 @@
+import rerender from "./../rerender";
+
 let state = {
     dialogsPage: {
         dialogs: [
@@ -18,7 +20,8 @@ let state = {
             {message: "Hi?", countLike: "2"},
             {message: "J_J", countLike: "1"},
             {message: "J_J", countLike: "3"}
-        ]
+        ],
+        textMessage: ""
     },
     navbarPage: {
         friends: [
@@ -36,6 +39,13 @@ export let addPost = (message) => {
         countLike: 0
     };
     state.profilePage.posts.push(post);
-}
+    rerender(state);
+};
+
+export let editTextAreaPost = (symbolKey) => {
+    state.profilePage.textMessage = symbolKey;
+    rerender(state);
+    
+};
 
 export default state;

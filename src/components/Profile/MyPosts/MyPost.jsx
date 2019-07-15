@@ -11,25 +11,22 @@ const MyPost = (props) => {
 
     let addPost = () => {
         let newMessage = refPost.current.value;
-        props.addPost(newMessage);
+        props.addPost();
     }
 
-    let inputInTextareaText = (event) => {
-        console.log(event);
-        
-        event.preventDefault();
-        let message = props.posts.textMessage + event.key;
-        props.editTextAreaPost(message);
-        
+    let handleChange = (event) => {
+        props.editTextAreaPost(event.target.value); 
     };
     
+    
+
     return (
         <div className={s.myPost}>
             <div>
                 My post
                 <div>
                     <textarea ref={refPost}
-                              onKeyDown={inputInTextareaText}
+                              onChange={handleChange}
                               value={props.posts.textMessage}
                               >
                         

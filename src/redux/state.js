@@ -33,12 +33,13 @@ let state = {
 
 };
 
-export let addPost = (message) => {
+export let addPost = () => {
     let post = {
-        message: message,
+        message: state.profilePage.textMessage,
         countLike: 0
     };
     state.profilePage.posts.push(post);
+    clearInputPost();
     rerender(state);
 };
 
@@ -47,5 +48,7 @@ export let editTextAreaPost = (symbolKey) => {
     rerender(state);
     
 };
-
+export let clearInputPost = () => {
+    state.profilePage.textMessage = "";
+}
 export default state;

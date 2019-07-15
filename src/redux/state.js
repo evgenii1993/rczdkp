@@ -35,25 +35,26 @@ let score = {
     getState() {
         return this._state;
     },
-    rerenderAllTree() {
+    _callSubscriber() {
 
     },
     subscribe(observer) {
-        this.rerenderAllTree = observer;
+        this._callSubscriber = observer;
     },
     addPost() {
+        
         let post = {
             message: this._state.profilePage.textMessage,
             countLike: 0
         };
         this._state.profilePage.posts.push(post);
         this.clearInputPost();
-        this.rerenderAllTree();
+        this._callSubscriber();
     },
     editTextAreaPost(symbolKey) {
         
         this._state.profilePage.textMessage = symbolKey;
-        this.rerenderAllTree();
+        this._callSubscriber();
     },
     clearInputPost() {
         this._state.profilePage.textMessage = "";

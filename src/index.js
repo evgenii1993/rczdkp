@@ -6,10 +6,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { addPost, editTextAreaPost, clearInputPost } from './redux/state';
 
 let rerenderAllTree = () => {
-    ReactDOM.render(<App state={store.getState()} {...store} />, document.getElementById('root'));
+    ReactDOM.render(<App state={store.getState()}   addPost={store.addPost.bind(store)} 
+                                                    editTextAreaPost={store.editTextAreaPost.bind(store)} 
+                                                    />, document.getElementById('root'));
 }
 
 store.subscribe(rerenderAllTree);

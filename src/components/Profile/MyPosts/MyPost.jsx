@@ -10,7 +10,6 @@ const MyPost = (props) => {
     let refPost = React.createRef();
 
     let addPost = () => {
-        let newMessage = refPost.current.value;
         props.addPost();
     }
 

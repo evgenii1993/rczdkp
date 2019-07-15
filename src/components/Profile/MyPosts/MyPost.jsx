@@ -29,7 +29,6 @@ const MyPost = (props) => {
                               onChange={handleChange}
                               value={props.posts.textMessage}
                               >
-                        
                     </textarea>
                     <button className="add post" onClick={addPost}>Add</button>
                 </div>

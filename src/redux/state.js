@@ -1,4 +1,6 @@
-import rerender from "./../rerender";
+let rerenderAllTree = () => {
+
+}
 
 let state = {
     dialogsPage: {
@@ -40,15 +42,20 @@ export let addPost = () => {
     };
     state.profilePage.posts.push(post);
     clearInputPost();
-    rerender(state);
+    rerenderAllTree();
 };
 
-export let editTextAreaPost = (symbolKey) => {
+export const editTextAreaPost = (symbolKey) => {
     state.profilePage.textMessage = symbolKey;
-    rerender(state);
+    rerenderAllTree();
     
 };
-export let clearInputPost = () => {
+export const clearInputPost = () => {
     state.profilePage.textMessage = "";
 }
+
+export const subscribe = (observer) => {
+    rerenderAllTree = observer;
+}
+
 export default state;

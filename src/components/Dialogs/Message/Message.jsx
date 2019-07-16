@@ -1,6 +1,6 @@
 import React from "react";
 import s from './../Dialogs.module.css';
-import {addMessageActionCreator, updateMessageDialogActionCreator} from './../../../redux/state';
+import {addMessageActionCreator, updateMessageDialogActionCreator} from './../../../redux/reducer-dialog';
 
 const Message = (props) => {
     let messagesElements = props.messages.messages.map(message => <div className={`${s.message} ${message.user}`}>{message.text}</div>);

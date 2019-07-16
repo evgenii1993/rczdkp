@@ -8,8 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 let rerenderAllTree = () => {
-    ReactDOM.render(<App state={store.getState()}   addPost={store.addPost.bind(store)} 
-                                                    editTextAreaPost={store.editTextAreaPost.bind(store)} 
+    ReactDOM.render(<App state={store.getState()}  dispatch={store.dispatch.bind(store)}
                                                     />, document.getElementById('root'));
 }
 

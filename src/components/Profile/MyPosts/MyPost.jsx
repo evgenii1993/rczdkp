@@ -10,11 +10,15 @@ const MyPost = (props) => {
     let refPost = React.createRef();
 
     let addPost = () => {
-        props.addPost();
+        props.dispatch({type: "ADD-POST"})
     }
 
     let handleChange = (event) => {
-        props.editTextAreaPost(event.target.value); 
+        let action = {
+            type: "UPDATE-TEXT-MESSAGE",
+            newText: event.target.value
+        }
+        props.dispatch(action); 
     };
     
     

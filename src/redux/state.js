@@ -32,17 +32,18 @@ let score = {
         }
 
     },
-    getState() {
-        return this._state;
-    },
     _callSubscriber() {
 
     },
+    getState() {
+        return this._state;
+    },
+    
     subscribe(observer) {
         this._callSubscriber = observer;
     },
     addPost() {
-        
+       /* 
         let post = {
             message: this._state.profilePage.textMessage,
             countLike: 0
@@ -50,15 +51,34 @@ let score = {
         this._state.profilePage.posts.push(post);
         this.clearInputPost();
         this._callSubscriber();
+
+        */
     },
     editTextAreaPost(symbolKey) {
-        
+        /*
         this._state.profilePage.textMessage = symbolKey;
-        this._callSubscriber();
+        this._callSubscriber();*/
     },
     clearInputPost() {
         this._state.profilePage.textMessage = "";
+    },
+
+    dispatch(action) {
+        
+        if (action.type === "ADD-POST") {
+            let post = {
+                message: this._state.profilePage.textMessage,
+                countLike: 0
+            };
+            this._state.profilePage.posts.push(post);
+            this.clearInputPost();
+            this._callSubscriber();
+        } else if (action.type === "UPDATE-TEXT-MESSAGE") {
+            this._state.profilePage.textMessage = action.newText;
+            this._callSubscriber();
+        }
     }
 }
+
 
 export default score;

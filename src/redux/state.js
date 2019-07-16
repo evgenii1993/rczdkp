@@ -1,3 +1,7 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_TEXT_MESSAGE_POST = 'UPDATE-TEXT-MESSAGE-POST';
+const ADD_MESSAGE_DIALOG = 'ADD-MESSAGE';
+const UPDATE_TEXT_MESSAGE_DIALOG = 'UPDATE-TEXT-MESSAGE-DIALOG';
 
 let score = {
     _state: {
@@ -12,7 +16,8 @@ let score = {
                 { text: "Hi", user: "me" },
                 { text: "Hi!", user: "other" },
                 { text: "I'm smart man and i get everything", user: "me" }
-            ]
+            ],
+            textMessage: ""
         },
         profilePage: {
             posts: [
@@ -62,10 +67,12 @@ let score = {
     clearInputPost() {
         this._state.profilePage.textMessage = "";
     },
-
+    clearInputMessage() {
+        this._state.dialogsPage.textMessage = "";
+    },
     dispatch(action) {
         
-        if (action.type === "ADD-POST") {
+        if (action.type === ADD_POST) {
             let post = {
                 message: this._state.profilePage.textMessage,
                 countLike: 0
@@ -73,12 +80,41 @@ let score = {
             this._state.profilePage.posts.push(post);
             this.clearInputPost();
             this._callSubscriber();
-        } else if (action.type === "UPDATE-TEXT-MESSAGE") {
+        } else if (action.type === UPDATE_TEXT_MESSAGE_POST) {
             this._state.profilePage.textMessage = action.newText;
+            this._callSubscriber();
+        } else if (action.type === ADD_MESSAGE_DIALOG) {
+            let message = {
+                text: this._state.dialogsPage.textMessage,
+                user: action.user
+            };
+            
+            this._state.dialogsPage.messages.push(message);
+            
+            this.clearInputMessage();
+            this._callSubscriber();
+        } else if (action.type === UPDATE_TEXT_MESSAGE_DIALOG) {
+            
+            this._state.dialogsPage.textMessage = action.newText;
             this._callSubscriber();
         }
     }
 }
 
+export const addPostActionCreator = () => ({ type: ADD_POST });
 
+export const updateNewPostTextActionCreator = (text) => ({
+    type: UPDATE_TEXT_MESSAGE_POST, newText: text
+});
+
+export const addMessageActionCreator = () => ({
+    type: ADD_MESSAGE_DIALOG,
+    user: "me"
+});
+
+export const updateMessageDialogActionCreator = (text) => ({
+    type: UPDATE_TEXT_MESSAGE_DIALOG, 
+    newText: text
+});
+window.score = score;
 export default score;

@@ -21,8 +21,8 @@ const App = (props) => {
         <Navbar friends={props.state.navbarPage.friends}/>
         <div className={s.content}>
 
-          <Route exact path='/dialogs' render={() => <Dialogs messages={props.state.dialogsPage.messages} 
-                                                              dialogs={props.state.dialogsPage.dialogs}/>} />
+          <Route exact path='/dialogs' render={() => <Dialogs dialogsPage={props.state.dialogsPage}
+                                                              dispatch={props.dispatch}/>} />
           <Route path='/profile' render={() => <Profile posts={props.state.profilePage} 
                                                         dispatch={props.dispatch} />} />
           <Route path='/setting' component={Setting} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Profile.module.css';
 import MyPost from './MyPosts/MyPost';
+import MyPostContainer from './MyPosts/MyPostContainer';
 
 const Profile = (props) => {
     
@@ -13,8 +14,7 @@ const Profile = (props) => {
                 ava + description
             </div>
             <div>
-                <MyPost posts={props.posts}
-                        dispatch={props.dispatch}/>
+                <MyPostContainer {...props}/>
             </div>
         </div>
     );

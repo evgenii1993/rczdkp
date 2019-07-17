@@ -6,7 +6,18 @@ import reducerNavbar from "./reducer-navBar";
 let score = {
     _state: {
         dialogsPage: {
-            
+            dialogs: [
+                { id: "1", name: "Egor" },
+                { id: "2", name: "Oksana" },
+                { id: "3", name: "Galina" },
+                { id: "4", name: "Oleg" }
+            ],
+            messages: [
+                { text: "Hi", user: "me" },
+                { text: "Hi!", user: "other" },
+                { text: "I'm smart man and i get everything", user: "me" }
+            ],
+            textMessage: ""
         },
         profilePage: {
             posts: [

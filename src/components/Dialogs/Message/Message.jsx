@@ -1,17 +1,16 @@
 import React from "react";
 import s from './../Dialogs.module.css';
-import {addMessageActionCreator, updateMessageDialogActionCreator} from './../../../redux/reducer-dialog';
 
 const Message = (props) => {
-    let messagesElements = props.messages.messages.map(message => <div className={`${s.message} ${message.user}`}>{message.text}</div>);
+    let messagesElements = props.messages.map(message => <div className={`${s.message} ${message.user}`}>{message.text}</div>);
     let mesAreaRef = React.createRef();
 
     let handleChange = () => {
         let message = mesAreaRef.current.value;
-        props.dispatch(updateMessageDialogActionCreator(message));
+        props.onUpdateMessageFiend(message);
     }
     let addMessage = () => {
-        props.dispatch(addMessageActionCreator());
+        props.onAddMessage();
     }
 
     return (
@@ -20,7 +19,7 @@ const Message = (props) => {
                 {messagesElements}
             </div>
             <div className={s.panelMessage}>
-                <textarea ref={mesAreaRef} onChange={handleChange} value={props.messages.textMessage}></textarea>
+                <textarea ref={mesAreaRef} onChange={handleChange} value={props.textMessage}></textarea>
                 <button onClick={addMessage}>Post</button>
             </div>
         </div>

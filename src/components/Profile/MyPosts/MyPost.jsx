@@ -6,16 +6,16 @@ import {addPostActionCreator, updateNewPostTextActionCreator} from './../../../r
 const MyPost = (props) => {
     
 
-    let postsElements = props.posts.posts.map(post => <Post message={post.message} countLike={post.countLike}/>);
+    let postsElements = props.posts.map(post => <Post message={post.message} countLike={post.countLike}/>);
 
     let refPost = React.createRef();
 
     let addPost = () => {
-        props.dispatch(addPostActionCreator());
+        props.onAddPost();
     };
 
     let handleChange = (event) => {
-        props.dispatch(updateNewPostTextActionCreator(event.target.value)); 
+        props.onNewTextMessage(event.target.value);
     };
     
     
@@ -27,7 +27,7 @@ const MyPost = (props) => {
                 <div>
                     <textarea ref={refPost}
                               onChange={handleChange}
-                              value={props.posts.textMessage}
+                              value={props.textMessage}
                               >
                     </textarea>
                     <button className="add post" onClick={addPost}>Add</button>

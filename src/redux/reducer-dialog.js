@@ -1,7 +1,22 @@
 const ADD_MESSAGE_DIALOG = 'ADD-MESSAGE';
 const UPDATE_TEXT_MESSAGE_DIALOG = 'UPDATE-TEXT-MESSAGE-DIALOG';
 
-const reducerDialog = (state, action) => {
+let initialState = {
+    dialogs: [
+        { id: "1", name: "Egor" },
+        { id: "2", name: "Oksana" },
+        { id: "3", name: "Galina" },
+        { id: "4", name: "Oleg" }
+    ],
+    messages: [
+        { text: "Hi", user: "me" },
+        { text: "Hi!", user: "other" },
+        { text: "I'm smart man and i get everything", user: "me" }
+    ],
+    textMessage: ""
+};
+
+const reducerDialog = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE_DIALOG: 
             let message = {

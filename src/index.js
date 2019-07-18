@@ -6,10 +6,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {Provider} from 'react-redux';
+
 
 let rerenderAllTree = () => {
-    ReactDOM.render(<App store={store.getState()}  dispatch={store.dispatch.bind(store)}
-                                                    />, document.getElementById('root'));
+    debugger
+    ReactDOM.render(
+        <Provider store={store}>   
+                        
+            <App  />
+        </Provider>, document.getElementById('root'));
 }
 
 store.subscribe(rerenderAllTree);

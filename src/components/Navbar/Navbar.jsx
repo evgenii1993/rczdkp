@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 const Navbar = (props) => {
     
-    let friends = props.friends.map(friend => <NavLink className={s.avatarItem} to={`/friend/${friend.id}`}><img src={friend.src} className={s.avatar}/></NavLink>);
+    // let friends = props.friends.map(friend => <NavLink className={s.avatarItem} to={`/friend/${friend.id}`}><img src={friend.src} className={s.avatar}/></NavLink>);
 
     return (
         <nav className={s.nav}>
@@ -26,10 +26,10 @@ const Navbar = (props) => {
             </div>
 
             <div className={s.item}>
-                <NavLink to="/friends" activeClassName={s.activeLink}>Friends</NavLink>
+                {/* <NavLink to="/friends" activeClassName={s.activeLink}>Friends</NavLink>
                 <div className={s.wrapperItem} >
                     {friends}
-                </div>
+                </div> */}
             </div>
         </nav>
     );

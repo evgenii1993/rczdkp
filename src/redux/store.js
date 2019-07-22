@@ -13,18 +13,18 @@ let score = {
                 { id: "4", name: "Oleg" }
             ],
             messages: [
-                { text: "Hi", user: "me" },
-                { text: "Hi!", user: "other" },
-                { text: "I'm smart man and i get everything", user: "me" }
+                { id: "1", text: "Hi", user: "me" },
+                { id: "2", text: "Hi!", user: "other" },
+                { id: "3", text: "I'm smart man and i get everything", user: "me" }
             ],
             textMessage: ""
         },
         profilePage: {
             posts: [
-                { message: "Hi!", countLike: "12" },
-                { message: "Hi?", countLike: "2" },
-                { message: "J_J", countLike: "1" },
-                { message: "J_J", countLike: "3" }
+                { id: "1", message: "Hi!", countLike: "12" },
+                { id: "2", message: "Hi?", countLike: "2" },
+                { id: "3",  message: "J_J", countLike: "1" },
+                { id: "4", message: "J_J", countLike: "3" }
             ],
             textMessage: ""
         },

@@ -9,9 +9,9 @@ let initialState = {
         { id: "4", name: "Oleg" }
     ],
     messages: [
-        { text: "Hi", user: "me" },
-        { text: "Hi!", user: "other" },
-        { text: "I'm smart man and i get everything", user: "me" }
+        { id: "1", text: "Hi", user: "me" },
+        { id: "2", text: "Hi!", user: "other" },
+        { id: "3", text: "I'm smart man and i get everything", user: "me" }
     ],
     textMessage: ""
 };
@@ -20,19 +20,22 @@ const reducerDialog = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE_DIALOG: {
             let message = {
+                id: state.messages.length,
                 text: state.textMessage,
                 user: action.user
             };
-            let newState = {...state};
-            newState.messages = [...state.messages];
-            newState.messages.push(message);
-            newState.textMessage = "";
-            return newState;
+            
+            return {
+                ...state,
+                messages: [...state.messages, message],
+                textMessage: ""
+            };
         }
         case UPDATE_TEXT_MESSAGE_DIALOG: {
-            let newState = {...state};
-            newState.textMessage = action.newText;
-            return newState;
+            return {
+                ...state,
+                textMessage: action.newText
+            };
         }
         default: {
             return state;

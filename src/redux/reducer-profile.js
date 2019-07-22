@@ -3,10 +3,10 @@ const UPDATE_TEXT_MESSAGE_POST = 'UPDATE-TEXT-MESSAGE-POST';
 
 let initialState = {
     posts: [
-        { message: "Hi!", countLike: "12" },
-        { message: "Hi?", countLike: "2" },
-        { message: "J_J", countLike: "1" },
-        { message: "J_J", countLike: "3" }
+        { id: "1", message: "Hi!", countLike: "12" },
+        { id: "2", message: "Hi?", countLike: "2" },
+        { id: "3", message: "J_J", countLike: "1" },
+        { id: "4", message: "J_J", countLike: "3" }
     ],
     textMessage: ""
 }
@@ -16,19 +16,21 @@ const reducerProfile = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
             let post = {
+                id: state.posts.length,
                 message: state.textMessage,
                 countLike: 0
             };
-            let newState = {...state};
-            newState.posts = [...state.posts];
-            newState.posts.push(post);
-            newState.textMessage = "";
-            return newState;
+            return {
+                ...state,
+                posts: [...state.posts, post],
+                textMessage: ""
+            };
         }
         case UPDATE_TEXT_MESSAGE_POST: {
-            let newState = {...state};
-            newState.textMessage = action.newText;
-            return newState;
+            return {
+                ...state,
+                textMessage: action.newText
+            };
         }
         default:
             return state; 

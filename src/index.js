@@ -10,7 +10,7 @@ import {Provider} from 'react-redux';
 
 
 let rerenderAllTree = () => {
-    debugger
+    
     ReactDOM.render(
         <Provider store={store}>   
                         

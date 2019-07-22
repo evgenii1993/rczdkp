@@ -8,11 +8,11 @@ const Dialogs = (props) => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
-                <Dialog dialogs={props.store.dialogsPage.dialogs} dispatch={props.dispatch}/>
+                {/* <Dialog dialogs={props.store.dialogsPage.dialogs} dispatch={props.dispatch}/> */}
             </div>
             
             <div className={s.messages}>
-                <MessageConteiner {...props}/>
+                <MessageConteiner />
             </div>
         </div>
     );

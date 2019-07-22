@@ -3,21 +3,7 @@ import { addMessageActionCreator, updateMessageDialogActionCreator } from '../..
 import Message from "./Message";
 import { connect } from "react-redux";
 
-/*
-const MessageConteiner = (props) => {
 
-    let onUpdateMessageFiend = (text) => {
-        props.dispatch(updateMessageDialogActionCreator(text));
-    }
-    let onAddMessage = () => {
-        props.dispatch(addMessageActionCreator());
-    }
-
-    return <Message onUpdateMessageFiend={onUpdateMessageFiend}
-                    onAddMessage={onAddMessage}
-                    messages={props.store.dialogsPage.messages}
-                    textMessage={props.store.dialogsPage.textMessage} />
-}*/
 
 let mapStateToProps = (state) => {
     return {

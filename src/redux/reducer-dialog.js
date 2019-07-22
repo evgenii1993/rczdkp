@@ -18,22 +18,25 @@ let initialState = {
 
 const reducerDialog = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_MESSAGE_DIALOG: 
+        case ADD_MESSAGE_DIALOG: {
             let message = {
                 text: state.textMessage,
                 user: action.user
             };
-            
-            state.messages.push(message);
-            state.textMessage = "";
+            let newState = {...state};
+            newState.messages = [...state.messages];
+            newState.messages.push(message);
+            newState.textMessage = "";
+            return newState;
+        }
+        case UPDATE_TEXT_MESSAGE_DIALOG: {
+            let newState = {...state};
+            newState.textMessage = action.newText;
+            return newState;
+        }
+        default: {
             return state;
-        
-        case UPDATE_TEXT_MESSAGE_DIALOG: 
-            state.textMessage = action.newText;
-            return state;
-
-        default:
-            return state;
+        }
     }
 }
 

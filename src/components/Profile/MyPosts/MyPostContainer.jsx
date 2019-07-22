@@ -30,7 +30,6 @@ let mapDispatchToProps = (dispatch) => {
     
     return {
         onNewTextMessage: (text) => {
-            debugger
             dispatch(updateNewPostTextActionCreator(text));
         },
         onAddPost: () => {

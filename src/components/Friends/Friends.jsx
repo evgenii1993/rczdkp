@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import s from './Friends.module.css';
 import * as axios from "axios";
 import avaPhoto from './../../assets/avatar-man.png';
+/*
 const Friends = (props) => {
     
     let getUsers = () => {
@@ -43,6 +44,51 @@ const Friends = (props) => {
             <button onClick={getUsers}>get user</button>
         </div>
     );
+}
+*/
+class Friends extends Component {
+    constructor(props) {
+        super(props);
+
+        axios
+            .get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response => {
+                this.props.setFriends(response.data.items);
+            })
+
+    }
+    
+    render() {
+        return (<div>
+            {this.props.friends.map(friend => {
+                        return (
+                            <div key={friend.id} className={s.item}>
+                                <div className={s.panelControl}>
+                                    <div className={s.imageWrap}>
+                                        <img src={friend.photos.small !== null ?
+                                            friend.photos.small : avaPhoto} className={s.img} />  
+                                    </div>
+                                    {friend.followed ? 
+                                        <button onClick={() => {this.props.unFollow(friend.id)}} className={`${s.button} ${s.unFollow}` }>Unfollow</button> 
+                                        : 
+                                        <button onClick={() => {this.props.follow(friend.id)}} className={`${s.button} ${s.follow}` }>Follow</button>
+                                    }
+                                </div>
+                                <div className={s.panelInfo}>
+                                    <span className={s.name}>{friend.name}</span>
+                                    <span className={s.status}>{friend.status}</span>
+                                    <div className={s.location}>
+                                        <div className={s.country}>friend.address.country</div>
+                                        <div className={s.city}>friend.address.city</div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        );
+    }
 }
 
 export default Friends;

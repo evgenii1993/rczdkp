@@ -4,28 +4,7 @@ const SET_FRIEND = "SET-FRIEND";
 
 let initialState = {
     friends: [
-        { 
-            id: "1", 
-            urlAvatar: "https://www.screengeek.net/wp-content/uploads/2018/11/avatar-movie.jpg", 
-            name: "Evgen",
-            status: "I'm Evgen. My life will the best, from step to step",
-            isFollow: false,
-            address: {
-                country: "Russia",
-                city: "TLT"
-            }
-        },
-        { 
-            id: "1", 
-            urlAvatar: "https://www.screengeek.net/wp-content/uploads/2018/11/avatar-movie.jpg", 
-            name: "Eva",
-            status: "I'm Evgen. My life will the best, from step to step",
-            isFollow: false,
-            address: {
-                country: "Russia",
-                city: "TLT"
-            }
-        }
+        
     ]
 }
 
@@ -36,11 +15,11 @@ const reducerFriend = (state = initialState, action) => {
             
             return {
                 ...state,
-                friends: state.friends.map(() => {
-                    if (this.id === action.id) {
-                        this.isFollow = true;
+                friends: state.friends.map(friend => {
+                    if (friend.id === action.id) {
+                        friend.isFollow = true;
                     }
-                    return this;
+                    return friend;
                 })
             }
         }
@@ -48,15 +27,16 @@ const reducerFriend = (state = initialState, action) => {
 
             return {
                 ...state,
-                friends: state.friends.map(() => {
-                    if (this.id === action.id) {
-                        this.isFollow = false;
+                friends: state.friends.map(friend => {
+                    if (friend.id === action.id) {
+                        friend.isFollow = false;
                     }
-                    return this;
+                    return friend;
                 })
             }
         }
         case SET_FRIEND: {
+            
             return {
                 ...state,
                 friends: [...state.friends, ...action.newFriends]
@@ -68,8 +48,8 @@ const reducerFriend = (state = initialState, action) => {
 }
 
 
-export const followAC = () => ({ type: FOLLOW_FRIEND });
-export const unFollowAC = () => ({ type: UN_FOLLOW_FRIEND });
-export const setFriendAC = () => ({type: SET_FRIEND})
+export const followAC = (id) => ({ type: FOLLOW_FRIEND, id: id });
+export const unFollowAC = (id) => ({ type: UN_FOLLOW_FRIEND, id: id });
+export const setFriendAC = (newFriends) => ({type: SET_FRIEND, newFriends: newFriends})
 
 export default reducerFriend;

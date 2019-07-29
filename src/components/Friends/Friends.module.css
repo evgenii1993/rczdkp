@@ -1,0 +1,45 @@
+.item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    grid-gap: 5px;
+    grid-row-gap: 5px;
+}
+.panelInfo {
+    display: grid;
+    grid-template-areas: 
+        "lName rLocation"
+        "lStatus rLocation";
+    grid-auto-rows: 1fr auto;
+    margin-bottom: 20px;
+}
+
+.name {
+    grid-area: lName;
+}
+.status {
+    grid-area: lStatus;
+}
+
+.location {
+    grid-area: rLocation;
+    text-align: right;
+}
+
+.img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.imageWrap {
+    max-width: 100%;
+    max-height: 100%;
+}
+.button {
+    background: green;
+}
+.unFollow {
+
+}
+.follow {
+
+}

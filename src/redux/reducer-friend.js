@@ -17,7 +17,7 @@ const reducerFriend = (state = initialState, action) => {
                 ...state,
                 friends: state.friends.map(friend => {
                     if (friend.id === action.id) {
-                        friend.isFollow = true;
+                        friend.followed = true;
                     }
                     return friend;
                 })
@@ -29,7 +29,7 @@ const reducerFriend = (state = initialState, action) => {
                 ...state,
                 friends: state.friends.map(friend => {
                     if (friend.id === action.id) {
-                        friend.isFollow = false;
+                        friend.followed = false;
                     }
                     return friend;
                 })

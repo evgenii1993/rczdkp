@@ -4,12 +4,14 @@ import * as axios from "axios";
 import avaPhoto from './../../assets/avatar-man.png';
 const Friends = (props) => {
     
-    if (props.friends.length === 0) {
-        axios
-            .get("https://social-network.samuraijs.com/api/1.0/users")
-            .then(response => {
-                props.setFriends(response.data.items);
-            })
+    let getUsers = () => {
+        if (props.friends.length === 0) {
+            axios
+                .get("https://social-network.samuraijs.com/api/1.0/users")
+                .then(response => {
+                    props.setFriends(response.data.items);
+                })
+        }
     }
     return (<div>
         {props.friends.map(friend => {
@@ -38,7 +40,7 @@ const Friends = (props) => {
                     )
                 })
             }
-            
+            <button onClick={getUsers}>get user</button>
         </div>
     );
 }

@@ -17,7 +17,7 @@ class Friends extends Component {
     onPageChange = (numberPage) => {
         this.props.setCurrentPage(numberPage);
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.currentCountFriend}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${numberPage}&count=${this.props.currentCountFriend}`)
             .then(response => {
                 this.props.setFriends(response.data.items);
             })

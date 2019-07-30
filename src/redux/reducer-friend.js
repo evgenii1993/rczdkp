@@ -4,6 +4,7 @@ const SET_FRIEND = "SET-FRIEND";
 const SET_TOTAL_COUNT = "SET-TOTAL-COUNT";
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
 const SET_CURRENT_COUNT_FRIEND = "SET-CURRENT-COUNT-FRIEND";
+const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
 
 let initialState = {
     friends: [
@@ -11,7 +12,8 @@ let initialState = {
     ],
     currentCountFriend: 20,
     currentPage: 1,
-    totalCount: 20
+    totalCount: 20,
+    isFetching: false
 }
 
 const reducerFriend = (state = initialState, action) => {
@@ -67,6 +69,12 @@ const reducerFriend = (state = initialState, action) => {
                 currentCountFriend: action.currentCountFriend
             }
         }
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
         default:
             return state; 
     }
@@ -79,5 +87,6 @@ export const setFriendAC = (newFriends) => ({type: SET_FRIEND, newFriends: newFr
 export const setTotalCountAC = (totalCount) => ({type:SET_TOTAL_COUNT, totalCount});
 export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setCurrentCountFriendAC = (currentCountFriend) => ({type: SET_CURRENT_COUNT_FRIEND, currentCountFriend});
+export const toggleIsFetchingAC = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 
 export default reducerFriend;

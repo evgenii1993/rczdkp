@@ -12,7 +12,9 @@
     grid-auto-rows: 1fr auto;
     margin-bottom: 20px;
 }
-
+.activePage {
+    color: yellowgreen;
+}
 .name {
     grid-area: lName;
 }

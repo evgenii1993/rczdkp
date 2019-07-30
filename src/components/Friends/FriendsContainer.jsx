@@ -1,8 +1,41 @@
-import React from "react";
+import React, {Component} from "react";
 import { followAC, unFollowAC, setFriendAC, setTotalCountAC, setCurrentPageAC, setCurrentCountFriendAC } from '../../redux/reducer-friend';
 import Friends from "./Friends";
 import { connect } from "react-redux";
+import * as axios from "axios";
 
+
+class FriendsContainer extends Component {
+    componentDidMount() {
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.currentCountFriend}`)
+            .then(response => {
+                this.props.setFriends(response.data.items);
+                this.props.setTotalCount(response.data.totalCount);
+            })
+    }
+    
+    onPageChange = (numberPage) => {
+        this.props.setCurrentPage(numberPage);
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${numberPage}&count=${this.props.currentCountFriend}`)
+            .then(response => {
+                this.props.setFriends(response.data.items);
+            })
+    } 
+
+    render() {
+        return (<Friends 
+            totalCount={this.props.totalCount}
+            currentCountFriend={this.props.currentCountFriend}
+            currentPage={this.props.currentPage}
+            onPageChange={this.onPageChange}
+            friends={this.props.friends}
+            unFollow={this.props.unFollow}
+            follow={this.props.follow}
+        />)
+    }
+}
 
 
 let mapStateToProps = (state) => {
@@ -37,6 +70,6 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
-const FriendsContainer = connect(mapStateToProps, mapDispatchToProps)(Friends);
 
-export default FriendsContainer;
+
+export default  connect(mapStateToProps, mapDispatchToProps)(FriendsContainer);

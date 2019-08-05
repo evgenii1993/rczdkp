@@ -2,7 +2,6 @@ import React from "react";
 import avaPhoto from './../../../assets/avatar-man.png';
 
 const Profile = (props) => {
-
     return (
         <>
             <div>

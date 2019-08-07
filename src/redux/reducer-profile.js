@@ -10,9 +10,7 @@ let initialState = {
         { id: "3", message: "J_J", countLike: "1" },
         { id: "4", message: "J_J", countLike: "3" }
     ],
-    personInfo: {
-        
-    },
+    personInfo: null,
     textMessage: "",
     isFetching: false
 }

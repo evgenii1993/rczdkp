@@ -18,7 +18,8 @@ let Friend = (props) => {
                 return (
                     <span
                         className={props.currentPage === index ? s.activePage : ""}
-                        onClick={(e) => { props.onPageChange(index) }}>
+                        onClick={(e) => { props.onPageChange(index) }}
+                        key={index}>
                         {index}
                     </span>
                 )

@@ -2,20 +2,28 @@ import React, {Component} from 'react';
 import {addPost, updateNewPostText, toggleIsFetching, setPersonInfo} from './../../redux/reducer-profile';
 import Profile from './Profile/Profile';
 import MyPost from './MyPosts/MyPost';
+import { withRouter } from 'react-router';
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
 import * as axios from 'axios';
 
 
 class ProfileContainer  extends Component {
-    componentDidMount() {
+    
+    componentDidMount() {      
+        
+        let idFriend = this.props.match.params.idFriend;
+        
+        if (!idFriend) {
+            idFriend = 2;
+        }
+
         this.props.toggleIsFetching(true);
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+            .get(`https://social-network.samuraijs.com/api/1.0/profile/${idFriend}`)
             .then(response => {
                 this.props.toggleIsFetching(false);
                 this.props.setPersonInfo(response.data);
-                
             })
     }
     render () {
@@ -51,6 +59,6 @@ let mapStateToProps = (state) => {
     }
 }
 
+let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-
-export default connect(mapStateToProps, {addPost, updateNewPostText, toggleIsFetching, setPersonInfo})(ProfileContainer);
+export default connect(mapStateToProps, {addPost, updateNewPostText, toggleIsFetching, setPersonInfo})(WithUrlDataContainerComponent);

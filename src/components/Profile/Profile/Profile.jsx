@@ -26,7 +26,7 @@ const Profile = (props) => {
             <div className={s.leftPanel}>
                 <div className={s.avatarWrapper}>
                     <img
-                        src={props.personInfo !== null ?
+                        src={props.personInfo.photos.large !== null ?
                             props.personInfo.photos.large : avaPhoto
                         }
                         className={s.avatar}

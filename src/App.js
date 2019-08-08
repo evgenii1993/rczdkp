@@ -17,13 +17,13 @@ const App = (props) => {
     <BrowserRouter>
       <div className={s.appWrapper}>
       
-        <Header />s
+        <Header />
         
          <Navbar/>
         <div className={s.content}>
 
           <Route exact path='/dialogs' render={() => <Dialogs/>} />
-          <Route path='/profile' render={() => <ProfileContainer  />} />
+          <Route path='/profile/:idFriend?' render={() => <ProfileContainer  />} />
           <Route path='/friends' render={() => <FriendsContainer />} />
           <Route path='/setting' component={Setting} />
           <Route path='/news' component={News} />

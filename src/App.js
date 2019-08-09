@@ -1,7 +1,6 @@
 import React from 'react';
 
 import s from './App.module.css';
-import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
 import Dialogs from './components/Dialogs/Dialogs';
 import Setting from './components/Setting/Setting';
@@ -10,6 +9,7 @@ import Music from './components/Music/Music';
 import FriendsContainer from './components/Friends/FriendsContainer';
 import { BrowserRouter, Route } from 'react-router-dom';
 import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 const App = (props) => {
   
@@ -17,9 +17,9 @@ const App = (props) => {
     <BrowserRouter>
       <div className={s.appWrapper}>
       
-        <Header />
+        <HeaderContainer />
         
-         <Navbar/>
+        <Navbar/>
         <div className={s.content}>
 
           <Route exact path='/dialogs' render={() => <Dialogs/>} />

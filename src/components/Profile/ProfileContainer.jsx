@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
 import * as axios from 'axios';
-
+import { profileAPI } from './../../api/profileAPI';
 
 class ProfileContainer  extends Component {
     
@@ -19,8 +19,7 @@ class ProfileContainer  extends Component {
         }
 
         this.props.toggleIsFetching(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/${idFriend}`)
+        profileAPI.getProfileUser(idFriend)
             .then(response => {
                 this.props.toggleIsFetching(false);
                 this.props.setPersonInfo(response.data);

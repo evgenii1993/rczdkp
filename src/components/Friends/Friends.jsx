@@ -2,8 +2,7 @@ import React from "react";
 import  s  from "./Friends.module.css";
 import {NavLink} from "react-router-dom";
 import avaPhoto from './../../assets/avatar-man.png';
-import * as axios from 'axios';
-import { expressionStatement } from "@babel/types";
+import { usersAPI } from "../../api/usersAPI";
 
 let Friend = (props) => {
     let pagination = [];
@@ -38,10 +37,7 @@ let Friend = (props) => {
                         </div>
                         {friend.followed ?
                             <button onClick={() => { 
-                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${friend.id}`,  {
-                                                withCredentials: true,
-                                                headers:  {'API-KEY': '28573ac2-4e3d-436e-a06e-785713baaebe'}
-                                            })
+                                        usersAPI.unFollow(friend.id)
                                             .then(response => {
                                                 if (response.data.resultCode === 0) {
                                                     props.unFollow(friend.id);
@@ -52,10 +48,7 @@ let Friend = (props) => {
                                 className={`${s.button} ${s.unFollow}`}>Unfollow</button>
                             :
                             <button onClick={() => { 
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${friend.id}`, {}, {
-                                            withCredentials: true,
-                                            headers: {'API-KEY': '28573ac2-4e3d-436e-a06e-785713baaebe'}
-                                        })
+                                    usersAPI.follow(friend.id)
                                         .then(response => {
                                             if (response.data.resultCode === 0) {
                                                 props.follow(friend.id);

@@ -2,28 +2,26 @@ import React, {Component} from "react";
 import { follow, unFollow, setFriends, setTotalCount, setCurrentPage, setCurrentCountFriend, toggleIsFetching  } from '../../redux/reducer-friend';
 import Friends from "./Friends";
 import { connect } from "react-redux";
-import * as axios from "axios";
 import Preloader from "./../common/Preloader/Preloader";
+import { usersAPI } from "../../api/usersAPI";
 
 class FriendsContainer extends Component {
     componentDidMount() {
         this.props.toggleIsFetching(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.currentCountFriend}`, {withCredentials: true})
-            .then(response => {
-                this.props.setFriends(response.data.items);
-                this.props.setTotalCount(response.data.totalCount);
+        usersAPI.getUsers(this.props.currentPage, this.props.currentCountFriend)
+            .then(data => {
+                this.props.setFriends(data.items);
+                this.props.setTotalCount(data.totalCount);
                 this.props.toggleIsFetching(false);
-            })
+            })          
     }
     
     onPageChange = (numberPage) => {
         this.props.setCurrentPage(numberPage);
         this.props.toggleIsFetching(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${numberPage}&count=${this.props.currentCountFriend}`, {withCredentials: true})
-            .then(response => {
-                this.props.setFriends(response.data.items);
+        usersAPI.getUsers(numberPage, this.props.currentCountFriend)
+            .then(data => {
+                this.props.setFriends(data.items);
                 this.props.toggleIsFetching(false);
             })
     } 

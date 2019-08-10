@@ -9,7 +9,7 @@ class FriendsContainer extends Component {
     componentDidMount() {
         this.props.toggleIsFetching(true);
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.currentCountFriend}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.currentCountFriend}`, {withCredentials: true})
             .then(response => {
                 this.props.setFriends(response.data.items);
                 this.props.setTotalCount(response.data.totalCount);
@@ -21,7 +21,7 @@ class FriendsContainer extends Component {
         this.props.setCurrentPage(numberPage);
         this.props.toggleIsFetching(true);
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${numberPage}&count=${this.props.currentCountFriend}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${numberPage}&count=${this.props.currentCountFriend}`, {withCredentials: true})
             .then(response => {
                 this.props.setFriends(response.data.items);
                 this.props.toggleIsFetching(false);

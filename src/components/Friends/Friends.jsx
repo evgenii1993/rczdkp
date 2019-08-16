@@ -26,6 +26,7 @@ let Friend = (props) => {
             })
         }
         {props.friends.map(friend => {
+            
             return (
                 <div key={friend.id} className={s.item}>
                     <div className={s.panelControl}>
@@ -37,28 +38,36 @@ let Friend = (props) => {
                         </div>
                         {friend.followed ?
                             <button onClick={() => { 
+                                        props.toggleIsFetchingFollowAdd(friend.id);
                                         usersAPI.unFollow(friend.id)
                                             .then(response => {
                                                 if (response.data.resultCode === 0) {
                                                     props.unFollow(friend.id);
                                                 }
+                                                props.toggleIsFetchingFollowRemove(friend.id);
                                             })
-                                    }
-                                } 
-                                className={`${s.button} ${s.unFollow}`}>Unfollow</button>
+                                        }
+                                    } 
+                                    disabled={props.disabledFollowUsers.some((item) => {
+                                        return item === friend.id;
+                                    })}
+                                    className={`${s.button} ${s.unFollow}`}>Unfollow</button>
                             :
                             <button onClick={() => { 
-                                    usersAPI.follow(friend.id)
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.follow(friend.id);
-                                            }
-                                        })
-                                    
-
-                                }
-                            } 
-                            className={`${s.button} ${s.follow}`}>Follow</button>
+                                        props.toggleIsFetchingFollowAdd(friend.id);
+                                        usersAPI.follow(friend.id)
+                                            .then(response => {
+                                                if (response.data.resultCode === 0) {
+                                                    props.follow(friend.id);
+                                                }
+                                                props.toggleIsFetchingFollowRemove(friend.id);
+                                            })
+                                        }
+                                    } 
+                                    disabled={props.disabledFollowUsers.some((item) => {
+                                        return item === friend.id;
+                                    })}
+                                    className={`${s.button} ${s.follow}`}>Follow</button>
                         }
                     </div>
                     <div className={s.panelInfo}>

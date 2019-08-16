@@ -5,6 +5,8 @@ const SET_TOTAL_COUNT = "SET-TOTAL-COUNT";
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE";
 const SET_CURRENT_COUNT_FRIEND = "SET-CURRENT-COUNT-FRIEND";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
+const TOGGLE_IS_FETCHING_FOLLOW_ADD = "TOGGLE-IS-FETCHING-FOLLOW-ADD";
+const TOGGLE_IS_FETCHING_FOLLOW_REMOVE = "TOGGLE-IS-FETCHING-FOLLOW-REMOVE";
 
 let initialState = {
     friends: [
@@ -13,14 +15,14 @@ let initialState = {
     currentCountFriend: 20,
     currentPage: 1,
     totalCount: 20,
-    isFetching: false
+    isFetching: false,
+    disabledFollowUsers: []
 }
 
 const reducerFriend = (state = initialState, action) => {
     
     switch (action.type) {
         case FOLLOW_FRIEND: {
-            
             return {
                 ...state,
                 friends: state.friends.map(friend => {
@@ -32,7 +34,6 @@ const reducerFriend = (state = initialState, action) => {
             }
         }
         case UN_FOLLOW_FRIEND: {
-
             return {
                 ...state,
                 friends: state.friends.map(friend => {
@@ -44,7 +45,6 @@ const reducerFriend = (state = initialState, action) => {
             }
         }
         case SET_FRIEND: {
-            
             return {
                 ...state,
                 friends: [...action.newFriends]
@@ -75,6 +75,22 @@ const reducerFriend = (state = initialState, action) => {
                 isFetching: action.isFetching
             }
         }
+        case TOGGLE_IS_FETCHING_FOLLOW_ADD: {
+            return {
+                ...state,
+                disabledFollowUsers: [...state.disabledFollowUsers,  action.id]
+            }
+        }
+        case TOGGLE_IS_FETCHING_FOLLOW_REMOVE: {
+            return {
+                ...state,
+                disabledFollowUsers: state.disabledFollowUsers.filter((itemId) => {
+                    if (itemId !== action.id) {
+                        return itemId;
+                    }
+                })
+            }
+        }
         default:
             return state; 
     }
@@ -88,5 +104,7 @@ export const setTotalCount = (totalCount) => ({type:SET_TOTAL_COUNT, totalCount}
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setCurrentCountFriend = (currentCountFriend) => ({type: SET_CURRENT_COUNT_FRIEND, currentCountFriend});
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const toggleIsFetchingFollowAdd = (id) => ({type: TOGGLE_IS_FETCHING_FOLLOW_ADD, id});
+export const toggleIsFetchingFollowRemove = (id) => ({type: TOGGLE_IS_FETCHING_FOLLOW_REMOVE, id});
 
 export default reducerFriend;

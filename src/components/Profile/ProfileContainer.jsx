@@ -1,29 +1,21 @@
-import React, {Component} from 'react';
-import {addPost, updateNewPostText, toggleIsFetching, setPersonInfo} from './../../redux/reducer-profile';
+import React, { Component } from 'react';
+import { addPost, updateNewPostText, getProfile } from './../../redux/reducer-profile';
 import Profile from './Profile/Profile';
 import MyPost from './MyPosts/MyPost';
 import { withRouter } from 'react-router';
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
-import * as axios from 'axios';
-import { profileAPI } from './../../api/profileAPI';
 
 class ProfileContainer  extends Component {
     
-    componentDidMount() {      
-        
+    componentDidMount() {    
         let idFriend = this.props.match.params.idFriend;
         
         if (!idFriend) {
             idFriend = 2;
         }
 
-        this.props.toggleIsFetching(true);
-        profileAPI.getProfileUser(idFriend)
-            .then(response => {
-                this.props.toggleIsFetching(false);
-                this.props.setPersonInfo(response.data);
-            })
+        this.props.getProfile(idFriend);
     }
     render () {
         
@@ -60,4 +52,6 @@ let mapStateToProps = (state) => {
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {addPost, updateNewPostText, toggleIsFetching, setPersonInfo})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, { 
+    addPost, updateNewPostText, 
+    getProfile })(WithUrlDataContainerComponent);

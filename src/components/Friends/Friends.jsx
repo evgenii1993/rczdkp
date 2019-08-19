@@ -37,33 +37,13 @@ let Friend = (props) => {
                             </NavLink>
                         </div>
                         {friend.followed ?
-                            <button onClick={() => { 
-                                        props.toggleIsFetchingFollowAdd(friend.id);
-                                        usersAPI.unFollow(friend.id)
-                                            .then(response => {
-                                                if (response.data.resultCode === 0) {
-                                                    props.unFollow(friend.id);
-                                                }
-                                                props.toggleIsFetchingFollowRemove(friend.id);
-                                            })
-                                        }
-                                    } 
+                            <button onClick={() => { props.unFollowSuccess(friend.id) }} 
                                     disabled={props.disabledFollowUsers.some((item) => {
                                         return item === friend.id;
                                     })}
                                     className={`${s.button} ${s.unFollow}`}>Unfollow</button>
                             :
-                            <button onClick={() => { 
-                                        props.toggleIsFetchingFollowAdd(friend.id);
-                                        usersAPI.follow(friend.id)
-                                            .then(response => {
-                                                if (response.data.resultCode === 0) {
-                                                    props.follow(friend.id);
-                                                }
-                                                props.toggleIsFetchingFollowRemove(friend.id);
-                                            })
-                                        }
-                                    } 
+                            <button onClick={() => { props.followSuccess(friend.id) }} 
                                     disabled={props.disabledFollowUsers.some((item) => {
                                         return item === friend.id;
                                     })}

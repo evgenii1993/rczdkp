@@ -8,10 +8,10 @@ const Message = (props) => {
 
     let handleChange = () => {
         let message = mesAreaRef.current.value;
-        props.onUpdateMessageFiend(message);
+        props.updateMessageDialog(message);
     }
     let addMessage = () => {
-        props.onAddMessage();
+        props.addMessage();
     }
 
     return (

@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/usersAPI";
+
 const FOLLOW_FRIEND = "FOLLOW-FRIEND";
 const UN_FOLLOW_FRIEND = "UN-FOLLOW-FRIEND";
 const SET_FRIEND = "SET-FRIEND";
@@ -106,5 +108,47 @@ export const setCurrentCountFriend = (currentCountFriend) => ({type: SET_CURRENT
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 export const toggleIsFetchingFollowAdd = (id) => ({type: TOGGLE_IS_FETCHING_FOLLOW_ADD, id});
 export const toggleIsFetchingFollowRemove = (id) => ({type: TOGGLE_IS_FETCHING_FOLLOW_REMOVE, id});
+
+
+
+export const getFriends = (currentPage, currentCountFriend) => {
+    return (dispatch) => { 
+        dispatch(setCurrentPage(currentPage));
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(currentPage, currentCountFriend)
+            .then(data => {
+                dispatch(setFriends(data.items));
+                dispatch(setTotalCount(data.totalCount));
+                dispatch(toggleIsFetching(false));
+            })  
+    }
+}
+
+export const unFollowSuccess = (id) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetchingFollowAdd(id));
+        usersAPI.unFollow(id)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(unFollow(id));
+            }
+            dispatch(toggleIsFetchingFollowRemove(id));
+        })
+    }
+}
+
+
+export const followSuccess = (id) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetchingFollowAdd(id));
+        usersAPI.follow(id)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(follow(id));
+            }
+            dispatch(toggleIsFetchingFollowRemove(id));
+        })
+    }
+}
 
 export default reducerFriend;

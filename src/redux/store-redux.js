@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from 'redux-thunk';
 import reducerProfile from "./reducer-profile";
 import reducerDialog from "./reducer-dialog";
 import reducerNavbar from "./reducer-navBar";
@@ -13,6 +14,6 @@ let reducers = combineReducers({
     auth: reducerAuth
 });
 
-let score = createStore(reducers);
+let score = createStore(reducers, applyMiddleware(thunk));
 
 export default score;

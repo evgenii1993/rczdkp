@@ -43,12 +43,12 @@ const reducerDialog = (state = initialState, action) => {
     }
 }
 
-export const addMessageActionCreator = () => ({
+export const addMessage = () => ({
     type: ADD_MESSAGE_DIALOG,
     user: "me"
 });
 
-export const updateMessageDialogActionCreator = (text) => ({
+export const updateMessageDialog = (text) => ({
     type: UPDATE_TEXT_MESSAGE_DIALOG, 
     newText: text
 });

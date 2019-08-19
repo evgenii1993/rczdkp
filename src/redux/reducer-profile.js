@@ -1,3 +1,5 @@
+import { profileAPI } from "../api/profileAPI";
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_TEXT_MESSAGE_POST = 'UPDATE-TEXT-MESSAGE-POST';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
@@ -69,4 +71,15 @@ export const setPersonInfo = (personInfo) => ({
     type: SET_PERSON_INFO, personInfo
 })
 
+
+export const getProfile = (id) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+        profileAPI.getProfileUser(id)
+            .then(response => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setPersonInfo(response.data));
+            })
+    }
+}
 export default reducerProfile;

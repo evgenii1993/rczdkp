@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { Redirect } from 'react-router'
 import { follow, unFollow, 
     setCurrentCountFriend, 
     toggleIsFetchingFollowAdd, toggleIsFetchingFollowRemove, getFriends, followSuccess, unFollowSuccess  } from '../../redux/reducer-friend';
@@ -16,7 +17,9 @@ class FriendsContainer extends Component {
     } 
 
     render() {
-
+        if (!this.props.authFriend) {
+            return <Redirect to={`/login`} />;
+        }
         return (
             <>
                 { this.props.isFetching ? 
@@ -50,7 +53,8 @@ let mapStateToProps = (state) => {
         currentPage: state.friendPage.currentPage,
         totalCount: state.friendPage.totalCount,
         isFetching: state.friendPage.isFetching,
-        disabledFollowUsers: state.friendPage.disabledFollowUsers
+        disabledFollowUsers: state.friendPage.disabledFollowUsers,
+        authFriend: state.auth.isAuth
     }
 }
 

@@ -2,7 +2,6 @@ import React from "react";
 import  s  from "./Friends.module.css";
 import {NavLink} from "react-router-dom";
 import avaPhoto from './../../assets/avatar-man.png';
-import { usersAPI } from "../../api/usersAPI";
 
 let Friend = (props) => {
     let pagination = [];

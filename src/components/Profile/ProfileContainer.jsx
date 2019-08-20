@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { addPost, updateNewPostText, getProfile } from './../../redux/reducer-profile';
 import Profile from './Profile/Profile';
 import MyPost from './MyPosts/MyPost';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
 
@@ -18,7 +18,9 @@ class ProfileContainer  extends Component {
         this.props.getProfile(idFriend);
     }
     render () {
-        
+        if (!this.props.auth) {
+            return <Redirect to="/Login" />;
+        }
         return (
             <>
                 { 
@@ -46,7 +48,8 @@ let mapStateToProps = (state) => {
         posts: state.profilePage.posts,
         textMessage: state.profilePage.textMessage,
         isFetching: state.profilePage.isFetching,
-        personInfo: state.profilePage.personInfo
+        personInfo: state.profilePage.personInfo,
+        auth: state.auth.isAuth
     }
 }
 

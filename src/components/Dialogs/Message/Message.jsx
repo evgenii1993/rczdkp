@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 import s from './../Dialogs.module.css';
 
 const Message = (props) => {
@@ -12,6 +13,10 @@ const Message = (props) => {
     }
     let addMessage = () => {
         props.addMessage();
+    }
+
+    if (!props.auth) {
+        return <Redirect to={`/Login`}/>
     }
 
     return (

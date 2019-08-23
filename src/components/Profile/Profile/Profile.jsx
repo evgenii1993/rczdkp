@@ -2,6 +2,7 @@ import React from "react";
 import avaPhoto from './../../../assets/avatar-man.png';
 import Preloader from "../../common/Preloader/Preloader";
 import s from "./Profile.module.css";
+import ProfileStatus from "./ProfileStatus";
 
 
 
@@ -32,6 +33,7 @@ const Profile = (props) => {
                         className={s.avatar}
                     />
                 </div>
+                <ProfileStatus status='STATUS!!!'/>
                 <div className={s.listLink}>
                     {listIcons}
                 </div>

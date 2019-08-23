@@ -3,6 +3,7 @@ import { follow, unFollow,
     setCurrentCountFriend, 
     toggleIsFetchingFollowAdd, toggleIsFetchingFollowRemove, getFriends, followSuccess, unFollowSuccess  } from '../../redux/reducer-friend';
 import Friends from "./Friends";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import Preloader from "./../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
@@ -56,7 +57,11 @@ let mapStateToProps = (state) => {
 }
 
 
-const FriendsWithAuthRedirect = withAuthRedirect(FriendsContainer);
-
-export default  connect(mapStateToProps, 
-    {follow, unFollow, setCurrentCountFriend, toggleIsFetchingFollowAdd, toggleIsFetchingFollowRemove, getFriends, followSuccess, unFollowSuccess})(FriendsWithAuthRedirect);
+export default compose(
+        connect(mapStateToProps, {
+                follow, unFollow, setCurrentCountFriend, 
+                toggleIsFetchingFollowAdd, toggleIsFetchingFollowRemove, getFriends, 
+                followSuccess, unFollowSuccess
+            }),
+        withAuthRedirect
+    )(FriendsContainer);

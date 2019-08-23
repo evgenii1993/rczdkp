@@ -3,6 +3,7 @@ import { addPost, updateNewPostText, getProfile } from './../../redux/reducer-pr
 import Profile from './Profile/Profile';
 import MyPost from './MyPosts/MyPost';
 import { withRouter, Redirect } from 'react-router';
+import { compose } from "redux";
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
@@ -52,11 +53,11 @@ let mapStateToProps = (state) => {
     }
 }
 
-let ProfileWithAuthRedirect =  withAuthRedirect(ProfileContainer);
 
-let WithUrlDataContainerComponent = withRouter(ProfileWithAuthRedirect);
-
-
-export default connect(mapStateToProps, { 
-    addPost, updateNewPostText, 
-    getProfile })(WithUrlDataContainerComponent);
+export default compose(
+    connect(mapStateToProps, { 
+        addPost, updateNewPostText, 
+        getProfile }),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer);

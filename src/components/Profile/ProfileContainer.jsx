@@ -5,11 +5,13 @@ import MyPost from './MyPosts/MyPost';
 import { withRouter, Redirect } from 'react-router';
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
-import withAuthRedirect from '../../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+
 
 class ProfileContainer  extends Component {
     
     componentDidMount() {    
+        
         let idFriend = this.props.match.params.idFriend;
         
         if (!idFriend) {

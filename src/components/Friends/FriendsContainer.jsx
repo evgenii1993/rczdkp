@@ -1,11 +1,11 @@
 import React, {Component} from "react";
-import { Redirect } from 'react-router'
 import { follow, unFollow, 
     setCurrentCountFriend, 
     toggleIsFetchingFollowAdd, toggleIsFetchingFollowRemove, getFriends, followSuccess, unFollowSuccess  } from '../../redux/reducer-friend';
 import Friends from "./Friends";
 import { connect } from "react-redux";
 import Preloader from "./../common/Preloader/Preloader";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 class FriendsContainer extends Component {
     componentDidMount() {
@@ -17,9 +17,7 @@ class FriendsContainer extends Component {
     } 
 
     render() {
-        if (!this.props.authFriend) {
-            return <Redirect to={`/login`} />;
-        }
+       
         return (
             <>
                 { this.props.isFetching ? 
@@ -53,11 +51,12 @@ let mapStateToProps = (state) => {
         currentPage: state.friendPage.currentPage,
         totalCount: state.friendPage.totalCount,
         isFetching: state.friendPage.isFetching,
-        disabledFollowUsers: state.friendPage.disabledFollowUsers,
-        authFriend: state.auth.isAuth
+        disabledFollowUsers: state.friendPage.disabledFollowUsers
     }
 }
 
 
+const FriendsWithAuthRedirect = withAuthRedirect(FriendsContainer);
+
 export default  connect(mapStateToProps, 
-    {follow, unFollow, setCurrentCountFriend, toggleIsFetchingFollowAdd, toggleIsFetchingFollowRemove, getFriends, followSuccess, unFollowSuccess})(FriendsContainer);
+    {follow, unFollow, setCurrentCountFriend, toggleIsFetchingFollowAdd, toggleIsFetchingFollowRemove, getFriends, followSuccess, unFollowSuccess})(FriendsWithAuthRedirect);

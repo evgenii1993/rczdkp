@@ -33,7 +33,7 @@ const Profile = (props) => {
                         className={s.avatar}
                     />
                 </div>
-                <ProfileStatus status='STATUS!!!'/>
+                <ProfileStatus status={props.status} id={props.personInfo.userId} getStatus={props.getStatus} updateStatus={props.updateStatus}/>
                 <div className={s.listLink}>
                     {listIcons}
                 </div>

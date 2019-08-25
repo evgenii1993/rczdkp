@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST';
 const UPDATE_TEXT_MESSAGE_POST = 'UPDATE-TEXT-MESSAGE-POST';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const SET_PERSON_INFO = 'SET-PERSON-INFO';
+const SET_STATUS = 'SET-STATUS';
 
 let initialState = {
     posts: [
@@ -14,7 +15,8 @@ let initialState = {
     ],
     personInfo: null,
     textMessage: "",
-    isFetching: false
+    isFetching: false,
+    status: ""
 }
 
 const reducerProfile = (state = initialState, action) => {
@@ -51,6 +53,13 @@ const reducerProfile = (state = initialState, action) => {
                 personInfo: action.personInfo
             }
         }
+
+        case SET_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state; 
     }
@@ -69,8 +78,11 @@ export const toggleIsFetching = (isFetching) => ({
 
 export const setPersonInfo = (personInfo) => ({
     type: SET_PERSON_INFO, personInfo
-})
+});
 
+export const setStatus = (status) => ({
+    type: SET_STATUS,  status
+});
 
 export const getProfile = (id) => {
     return (dispatch) => {
@@ -81,5 +93,26 @@ export const getProfile = (id) => {
                 dispatch(setPersonInfo(response.data));
             })
     }
-}
+};
+
+export const getStatus = (id) => {
+    return (dispatch) => {
+        profileAPI.getStatusFriend(id)
+            .then(response => {
+                dispatch(setStatus(response.data));
+            })
+    }
+};
+
+export const updateStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.putStatusFriend(status)
+            .then(response => {
+                if (response.resultCode !== 0) {
+                    console.warn(`${response.messages}`);
+                }
+            })
+    }
+};
+
 export default reducerProfile;

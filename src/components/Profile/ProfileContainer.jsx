@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addPost, updateNewPostText, getProfile } from './../../redux/reducer-profile';
+import { addPost, updateNewPostText, getProfile, getStatus } from './../../redux/reducer-profile';
 import Profile from './Profile/Profile';
 import MyPost from './MyPosts/MyPost';
 import { withRouter, Redirect } from 'react-router';
@@ -7,6 +7,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import {updateStatus} from "../../redux/reducer-profile";
+
 
 
 class ProfileContainer  extends Component {
@@ -16,7 +18,7 @@ class ProfileContainer  extends Component {
         let idFriend = this.props.match.params.idFriend;
         
         if (!idFriend) {
-            idFriend = 2;
+            idFriend = 1417;
         }
 
         this.props.getProfile(idFriend);
@@ -29,7 +31,11 @@ class ProfileContainer  extends Component {
                         <Preloader />
                         :
                         <>
-                            <Profile personInfo={this.props.personInfo}/>
+                            <Profile personInfo={this.props.personInfo}
+                                     status={this.props.status}
+                                     getStatus={this.props.getStatus}
+                                     updateStatus={this.props.updateStatus}
+                            />
                             <MyPost 
                                 addPost={this.props.addPost}
                                 updateNewPostText={this.props.updateNewPostText}
@@ -49,7 +55,8 @@ let mapStateToProps = (state) => {
         posts: state.profilePage.posts,
         textMessage: state.profilePage.textMessage,
         isFetching: state.profilePage.isFetching,
-        personInfo: state.profilePage.personInfo
+        personInfo: state.profilePage.personInfo,
+        status: state.profilePage.status
     }
 }
 
@@ -57,7 +64,10 @@ let mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps, { 
         addPost, updateNewPostText, 
-        getProfile }),
+        getProfile,
+        getStatus,
+        updateStatus
+    }),
     withRouter,
     withAuthRedirect
 )(ProfileContainer);

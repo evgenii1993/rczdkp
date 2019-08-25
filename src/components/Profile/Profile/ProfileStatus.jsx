@@ -13,7 +13,7 @@ class ProfileStatus extends Component {
         this.props.getStatus(this.props.id);
     }
 
-/*
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.status !== this.props.status && !this.state.isEdit) {
             this.setState({
@@ -21,7 +21,7 @@ class ProfileStatus extends Component {
             })
         }
     }
-*/
+
     activeEditStatus = (e) => {
         this.setState({
             isEdit: true

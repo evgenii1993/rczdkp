@@ -14,7 +14,6 @@ let initialState = {
         { id: "4", message: "J_J", countLike: "3" }
     ],
     personInfo: null,
-    textMessage: "",
     isFetching: false,
     status: ""
 }
@@ -25,13 +24,12 @@ const reducerProfile = (state = initialState, action) => {
         case ADD_POST: {
             let post = {
                 id: state.posts.length + 1,
-                message: state.textMessage,
+                message: action.messagePost,
                 countLike: 0
             };
             return {
                 ...state,
-                posts: [...state.posts, post],
-                textMessage: ""
+                posts: [...state.posts, post]
             };
         }
         case UPDATE_TEXT_MESSAGE_POST: {
@@ -66,7 +64,7 @@ const reducerProfile = (state = initialState, action) => {
 }
 
 
-export const addPost = () => ({ type: ADD_POST });
+export const addPost = (messagePost) => ({ type: ADD_POST, messagePost: messagePost.messagePost});
 
 export const updateNewPostText = (message) => ({
     type: UPDATE_TEXT_MESSAGE_POST, message

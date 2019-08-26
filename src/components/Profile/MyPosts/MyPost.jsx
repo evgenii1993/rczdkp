@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field, reduxForm, reset } from 'redux-form';
 import s from './MyPost.module.css';
 import Post from './Post/Post';
 
@@ -7,29 +8,19 @@ const MyPost = (props) => {
 
     let postsElements = props.posts.map(post => <Post key={post.id} message={post.message} countLike={post.countLike}/>);
 
-    let refPost = React.createRef();
-
-    let addPost = () => {
-        props.addPost();
-    };
-
-    let handleChange = (event) => {
-        props.updateNewPostText(event.target.value);
-    };
     
-    
+
+    let addPostMessage = (postMessage) => {
+        props.addPost(postMessage);
+    };
+ 
 
     return (
         <div className={s.myPost}>
             <div>
                 My post
                 <div>
-                    <textarea ref={refPost}
-                              onChange={handleChange}
-                              value={props.textMessage}
-                              >
-                    </textarea>
-                    <button className="add post" onClick={addPost}>Add</button>
+                    <ReduxAddPostMessageForm onSubmit={addPostMessage} />
                 </div>
                 <div>
                     {postsElements}
@@ -38,5 +29,25 @@ const MyPost = (props) => {
         </div>
     );
 }
+
+const AddPostMessageForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component="textarea" name="messagePost" type="text" />
+            
+            <button className="add post" >Add</button>
+        </form>
+    );
+}
+
+const afterSubmit = (result, dispatch) => {
+    dispatch(reset('addPostMessage'));
+}
+
+const ReduxAddPostMessageForm = reduxForm({
+    form: 'addPostMessage',
+    onSubmitSuccess: afterSubmit,
+})(AddPostMessageForm);
+
 
 export default MyPost;

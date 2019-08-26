@@ -56,4 +56,16 @@ export const getAuth = () => {
     }
 }
 
+export const postAuth = (propsInfo) => {
+    authAPI.postAuthMe(propsInfo)
+        .then((response) => {
+            debugger
+            if (response.resultCode === 0) {
+                console.log("success auth");
+                getAuth();
+            }
+        })
+    
+}
+
 export default reducerAuth;

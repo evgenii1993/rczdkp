@@ -1,11 +1,49 @@
 import React from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { Redirect } from 'react-router';
+import { postAuth } from '../../redux/reducer-auth';
+
+const LoginForm = (props) => {
+
+    if (postAuth.isAuth) {
+        return <Redirect to="/profile" />;
+    }
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <label htmlFor="email">Логин</label>
+                <Field name="email" component="input" type="text" />
+            </div>
+            <div>
+                <label htmlFor="password">Пароль</label>
+                <Field name="password" component="input" type="text"/>
+            </div>
+            <div>
+                <label htmlFor="rememberMe">Запомнить меня</label>
+                <Field name="rememberMe" component="input" type="checkbox"/>
+            </div>
+            <button type="submit">Enter</button>
+            <button type="button" onClick={props.reset}>Reset</button>
+        </form>
+    );
+}
+const LoginFormRedux = reduxForm({
+    form: 'login'
+})(LoginForm);
+
 
 const Login = (props) => {
+    let onPostAuth = (values) => {
+        console.log("asdasd", values);
+        postAuth(values);
+    } 
     return (
         <>
-            <h2>Login</h2>
+            <h2>Login !!!</h2>
+            <LoginFormRedux onSubmit={onPostAuth}/>
         </>
     );
 }
 
-export  default Login;
+export default Login;

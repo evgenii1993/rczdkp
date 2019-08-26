@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import { reducer as formReducer } from "redux-form";
 import thunk from 'redux-thunk';
 import reducerProfile from "./reducer-profile";
 import reducerDialog from "./reducer-dialog";
@@ -11,7 +12,8 @@ let reducers = combineReducers({
     dialogsPage: reducerDialog,
     navbarPage: reducerNavbar,
     friendPage: reducerFriend,
-    auth: reducerAuth
+    auth: reducerAuth,
+    form: formReducer
 });
 
 let score = createStore(reducers, applyMiddleware(thunk));

@@ -1,0 +1,8 @@
+.error {
+    color: brown;
+}
+
+.errorField input,
+.errorField textarea {
+    border: 1px solid brown;
+}

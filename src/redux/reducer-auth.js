@@ -1,4 +1,5 @@
 import { authAPI } from "../api/authAPI";
+import { SubmissionError } from 'redux-form';
 
 const SET_USER_DATA = 'SET-USER-DATA';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
@@ -59,10 +60,10 @@ export const getAuth = () => {
 export const postAuth = (propsInfo) => {
     authAPI.postAuthMe(propsInfo)
         .then((response) => {
-            debugger
             if (response.resultCode === 0) {
-                console.log("success auth");
                 getAuth();
+            } else if (response.resultCode === 1) {
+               // throw new SubmissionError({ email: 'User does not exist', _error: 'Login failed!' });
             }
         })
     

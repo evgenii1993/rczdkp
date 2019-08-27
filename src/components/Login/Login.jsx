@@ -1,13 +1,16 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+
 import { Redirect } from 'react-router';
 import { postAuth } from '../../redux/reducer-auth';
+
 
 const LoginForm = (props) => {
 
     if (postAuth.isAuth) {
         return <Redirect to="/profile" />;
     }
+
 
     return (
         <form onSubmit={props.handleSubmit}>
@@ -35,8 +38,10 @@ const LoginFormRedux = reduxForm({
 
 const Login = (props) => {
     let onPostAuth = (values) => {
-        console.log("asdasd", values);
-        postAuth(values);
+        postAuth(values)
+        .then((response) => {
+            console.log(response, "");
+        })
     } 
     return (
         <>

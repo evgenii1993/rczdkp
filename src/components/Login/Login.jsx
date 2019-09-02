@@ -1,15 +1,13 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-
+import {connect} from 'react-redux';
 import { Redirect } from 'react-router';
 import { postAuth } from '../../redux/reducer-auth';
 
 
 const LoginForm = (props) => {
 
-    if (postAuth.isAuth) {
-        return <Redirect to="/profile" />;
-    }
+    
 
 
     return (
@@ -20,7 +18,7 @@ const LoginForm = (props) => {
             </div>
             <div>
                 <label htmlFor="password">Пароль</label>
-                <Field name="password" component="input" type="text"/>
+                <Field name="password" component="input" type="password"/>
             </div>
             <div>
                 <label htmlFor="rememberMe">Запомнить меня</label>
@@ -38,11 +36,11 @@ const LoginFormRedux = reduxForm({
 
 const Login = (props) => {
     let onPostAuth = (values) => {
-        postAuth(values)
-        .then((response) => {
-            console.log(response, "");
-        })
+        props.postAuth(values);        
     } 
+    if (props.isAuth) {
+        return <Redirect to="/profile" />;
+    }
     return (
         <>
             <h2>Login !!!</h2>
@@ -51,4 +49,10 @@ const Login = (props) => {
     );
 }
 
-export default Login;
+let mapStateToProps = (state) => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+
+export default connect(mapStateToProps, {postAuth})(Login);

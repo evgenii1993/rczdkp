@@ -1,8 +1,8 @@
 import { authAPI } from "../api/authAPI";
-import { SubmissionError } from 'redux-form';
 
 const SET_USER_DATA = 'SET-USER-DATA';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const LOGOUT_USER = 'LOGOUT-USER';
 
 let initialState = {
    userId: null,
@@ -29,6 +29,14 @@ const reducerAuth = (state = initialState, action) => {
             }
         }
 
+        case LOGOUT_USER: {
+            return {
+                ...state,
+                ...action.data,
+                isAuth: false
+            }
+        }
+
         default: {
             return state;
         }
@@ -45,6 +53,11 @@ export const toggleIsFetching = (isFetching) => ({
     isFetching
 })
 
+export const setUserLogoutData = () => ({
+    type: LOGOUT_USER,
+    data: {userId: null, email: null, login: null}
+});
+
 export const getAuth = () => {
     return (dispatch) => {
         authAPI.getAuthMe()
@@ -58,15 +71,25 @@ export const getAuth = () => {
 }
 
 export const postAuth = (propsInfo) => {
-    authAPI.postAuthMe(propsInfo)
+    return (dispatch) => {
+        authAPI.postAuthMe(propsInfo)
+            .then((response) => {
+                if (response.resultCode === 0) {
+                    dispatch(getAuth());
+                } 
+            })
+    }
+    
+}
+
+export const logoutUser = () => {
+    return (dispatch) => authAPI.logoutMe()
         .then((response) => {
+            console.log(response);
             if (response.resultCode === 0) {
-                getAuth();
-            } else if (response.resultCode === 1) {
-               // throw new SubmissionError({ email: 'User does not exist', _error: 'Login failed!' });
+                dispatch(setUserLogoutData());
             }
         })
-    
 }
 
 export default reducerAuth;

@@ -4,12 +4,11 @@ import {connect} from 'react-redux';
 import { Redirect } from 'react-router';
 import { postAuth } from '../../redux/reducer-auth';
 
-
 const LoginForm = (props) => {
 
     
 
-
+    let hasError = props.touch && props.error; 
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -24,6 +23,7 @@ const LoginForm = (props) => {
                 <label htmlFor="rememberMe">Запомнить меня</label>
                 <Field name="rememberMe" component="input" type="checkbox"/>
             </div>
+            {hasError && <div style={{color: "brown"}}>{props.error}</div>}
             <button type="submit">Enter</button>
             <button type="button" onClick={props.reset}>Reset</button>
         </form>

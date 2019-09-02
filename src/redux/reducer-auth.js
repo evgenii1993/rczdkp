@@ -1,5 +1,5 @@
 import { authAPI } from "../api/authAPI";
-
+import { stopSubmit } from "redux-form";
 const SET_USER_DATA = 'SET-USER-DATA';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const LOGOUT_USER = 'LOGOUT-USER';
@@ -76,7 +76,14 @@ export const postAuth = (propsInfo) => {
             .then((response) => {
                 if (response.resultCode === 0) {
                     dispatch(getAuth());
-                } 
+                } else {
+                    if (response.messages[0].length > 0) {
+                        dispatch(stopSubmit("login", {_error: response.messages[0]}));
+                    } else {
+                        dispatch(stopSubmit("login", {_error: "some error"}));
+                    }
+                    
+                }
             })
     }
     

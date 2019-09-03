@@ -58,17 +58,16 @@ export const setUserLogoutData = () => ({
     data: {userId: null, email: null, login: null}
 });
 
-export const getAuth = () => {
-    return (dispatch) => {
-        authAPI.getAuthMe()
-            .then((response) => {
-                if (response.resultCode === 0) {
-                    let {id, login, email} = response.data;
-                    dispatch(setUserData(id, email, login));
-                }
-            })
-    }
+export const getAuth = () => (dispatch) => {
+    return authAPI.getAuthMe()
+        .then((response) => {
+            if (response.resultCode === 0) {
+                let {id, login, email} = response.data;
+                dispatch(setUserData(id, email, login));
+            }
+        })
 }
+
 
 export const postAuth = (propsInfo) => {
     return (dispatch) => {

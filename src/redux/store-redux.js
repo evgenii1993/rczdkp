@@ -6,6 +6,7 @@ import reducerDialog from "./reducer-dialog";
 import reducerNavbar from "./reducer-navBar";
 import reducerFriend from "./reducer-friend";
 import reducerAuth from "./reducer-auth";
+import reducerApp from "./reducer-app";
 
 let reducers = combineReducers({
     profilePage: reducerProfile,
@@ -13,7 +14,8 @@ let reducers = combineReducers({
     navbarPage: reducerNavbar,
     friendPage: reducerFriend,
     auth: reducerAuth,
-    form: formReducer
+    form: formReducer,
+    app: reducerApp
 });
 
 let score = createStore(reducers, applyMiddleware(thunk));

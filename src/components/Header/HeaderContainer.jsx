@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import Header from './Header';
 import { connect } from 'react-redux';
-import { toggleIsFetching, getAuth, logoutUser } from './../../redux/reducer-auth';
+import { toggleIsFetching, logoutUser } from './../../redux/reducer-auth';
 
 class HeaderContainer extends Component {
-    componentDidMount() {
-        this.props.getAuth();
-    }
+   
     render() {
         
         return <>      
@@ -26,4 +24,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {  toggleIsFetching, getAuth, logoutUser } )(HeaderContainer);
+export default connect(mapStateToProps, {  toggleIsFetching, logoutUser } )(HeaderContainer);

@@ -7,7 +7,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import Preloader from "./../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-
+import { getFriends as getFriendsSelector, getCurrentCountFriend, getCurrentPage, getTotalCount, getIsFetching, getDisabledFollowUsers } from "./../../redux/selects/selectorFriend";
 class FriendsContainer extends Component {
     componentDidMount() {
         this.props.getFriends(this.props.currentPage, this.props.currentCountFriend);   
@@ -47,12 +47,12 @@ class FriendsContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        friends: state.friendPage.friends,
-        currentCountFriend: state.friendPage.currentCountFriend,
-        currentPage: state.friendPage.currentPage,
-        totalCount: state.friendPage.totalCount,
-        isFetching: state.friendPage.isFetching,
-        disabledFollowUsers: state.friendPage.disabledFollowUsers
+        friends: getFriendsSelector(state),
+        currentCountFriend: getCurrentCountFriend(state),
+        currentPage: getCurrentPage(state),
+        totalCount: getTotalCount(state),
+        isFetching: getIsFetching(state),
+        disabledFollowUsers: getDisabledFollowUsers(state)
     }
 }
 

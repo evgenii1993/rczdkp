@@ -5,11 +5,11 @@ import Post from './Post/Post';
 import { renderTextarea } from '../../common/componentForm/componentForm';
 import { required, maxLength } from '../../../utils/validation/validation';
 
-const MyPost = (props) => {
+const MyPost = React.memo(props => {
     
 
     let postsElements = props.posts.map(post => <Post key={post.id} message={post.message} countLike={post.countLike}/>);
-
+    console.log("RENDER My Post");
     
 
     let addPostMessage = (postMessage) => {
@@ -30,7 +30,7 @@ const MyPost = (props) => {
             </div>
         </div>
     );
-}
+})
 
 const maxLength100 = maxLength(100);
 const AddPostMessageForm = (props) => {

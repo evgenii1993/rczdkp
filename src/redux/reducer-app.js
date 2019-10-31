@@ -1,6 +1,6 @@
 import {getAuth} from "./reducer-auth";
 
-const INITIAL_SUCCESS = "INITIAL-SUCCESS";
+const INITIAL_SUCCESS = "rczdkp/reducer-app/INITIAL-SUCCESS";
 
 let initialState = {
    initialSuccess: false

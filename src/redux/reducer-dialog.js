@@ -1,4 +1,4 @@
-const ADD_MESSAGE_DIALOG = 'ADD-MESSAGE';
+const ADD_MESSAGE_DIALOG = 'rczdkp/reducer-dialog/ADD-MESSAGE';
 
 let initialState = {
     dialogs: [

@@ -1,15 +1,15 @@
 import { authAPI } from "../api/authAPI";
 import { stopSubmit } from "redux-form";
-const SET_USER_DATA = 'SET-USER-DATA';
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
-const LOGOUT_USER = 'LOGOUT-USER';
+const SET_USER_DATA = 'rczdkp/reducer-auth/SET-USER-DATA';
+const TOGGLE_IS_FETCHING = 'rczdkp/reducer-auth/TOGGLE-IS-FETCHING';
+const LOGOUT_USER = 'rczdkp/reducer-auth/LOGOUT-USER';
 
 let initialState = {
-   userId: null,
-   email: null,
-   login: null,
-   isAuth: false,
-   isFetching: false
+    userId: null,
+    email: null,
+    login: null,
+    isAuth: false,
+    isFetching: false
 };
 
 const reducerAuth = (state = initialState, action) => {
@@ -21,7 +21,7 @@ const reducerAuth = (state = initialState, action) => {
                 isAuth: true
             };
         }
-        
+
         case TOGGLE_IS_FETCHING: {
             return {
                 ...state,
@@ -45,7 +45,7 @@ const reducerAuth = (state = initialState, action) => {
 
 export const setUserData = (userId, email, login) => ({
     type: SET_USER_DATA,
-    data: {userId, email, login}
+    data: { userId, email, login }
 });
 
 export const toggleIsFetching = (isFetching) => ({
@@ -55,47 +55,42 @@ export const toggleIsFetching = (isFetching) => ({
 
 export const setUserLogoutData = () => ({
     type: LOGOUT_USER,
-    data: {userId: null, email: null, login: null}
+    data: { userId: null, email: null, login: null }
 });
 
-export const getAuth = () => (dispatch) => {
-    return authAPI.getAuthMe()
-        .then((response) => {
-            if (response.resultCode === 0) {
-                let {id, login, email} = response.data;
-                dispatch(setUserData(id, email, login));
-            }
-        })
-}
+export const getAuth = () => async (dispatch) => {
+    let response = await authAPI.getAuthMe()
 
-
-export const postAuth = (propsInfo) => {
-    return (dispatch) => {
-        authAPI.postAuthMe(propsInfo)
-            .then((response) => {
-                if (response.resultCode === 0) {
-                    dispatch(getAuth());
-                } else {
-                    if (response.messages[0].length > 0) {
-                        dispatch(stopSubmit("login", {_error: response.messages[0]}));
-                    } else {
-                        dispatch(stopSubmit("login", {_error: "some error"}));
-                    }
-                    
-                }
-            })
+    if (response.resultCode === 0) {
+        let { id, login, email } = response.data;
+        dispatch(setUserData(id, email, login));
     }
-    
 }
 
-export const logoutUser = () => {
-    return (dispatch) => authAPI.logoutMe()
-        .then((response) => {
-            console.log(response);
-            if (response.resultCode === 0) {
-                dispatch(setUserLogoutData());
-            }
-        })
+
+export const postAuth = (propsInfo) => async (dispatch) => {
+    let response = await authAPI.postAuthMe(propsInfo)
+
+    if (response.resultCode === 0) {
+        dispatch(getAuth());
+    } else {
+        if (response.messages[0].length > 0) {
+            dispatch(stopSubmit("login", { _error: response.messages[0] }));
+        } else {
+            dispatch(stopSubmit("login", { _error: "some error" }));
+        }
+
+    }
+
+}
+
+
+
+export const logoutUser = () => async (dispatch) => {
+    let response = await authAPI.logoutMe()
+    if (response.resultCode === 0) {
+        dispatch(setUserLogoutData());
+    }
 }
 
 export default reducerAuth;

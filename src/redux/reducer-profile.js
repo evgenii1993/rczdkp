@@ -1,11 +1,11 @@
 import { profileAPI } from "../api/profileAPI";
 
-const ADD_POST = 'ADD-POST';
-const DELETE_POST = 'DELETE-POST';
-const UPDATE_TEXT_MESSAGE_POST = 'UPDATE-TEXT-MESSAGE-POST';
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
-const SET_PERSON_INFO = 'SET-PERSON-INFO';
-const SET_STATUS = 'SET-STATUS';
+const ADD_POST = 'rczdkp/reducer-profile/ADD-POST';
+const DELETE_POST = 'rczdkp/reducer-profile/DELETE-POST';
+const UPDATE_TEXT_MESSAGE_POST = 'rczdkp/reducer-profile/UPDATE-TEXT-MESSAGE-POST';
+const TOGGLE_IS_FETCHING = 'rczdkp/reducer-profile/TOGGLE-IS-FETCHING';
+const SET_PERSON_INFO = 'rczdkp/reducer-profile/SET-PERSON-INFO';
+const SET_STATUS = 'rczdkp/reducer-profile/SET-STATUS';
 
 let initialState = {
     posts: [
@@ -20,7 +20,7 @@ let initialState = {
 }
 
 const reducerProfile = (state = initialState, action) => {
-    
+
     switch (action.type) {
         case ADD_POST: {
             let post = {
@@ -52,7 +52,7 @@ const reducerProfile = (state = initialState, action) => {
             }
         }
         case SET_PERSON_INFO: {
-            
+
             return {
                 ...state,
                 personInfo: action.personInfo
@@ -66,14 +66,14 @@ const reducerProfile = (state = initialState, action) => {
             }
         }
         default:
-            return state; 
+            return state;
     }
 }
 
 
-export const addPost = (messagePost) => ({ type: ADD_POST, messagePost: messagePost.messagePost});
+export const addPost = (messagePost) => ({ type: ADD_POST, messagePost: messagePost.messagePost });
 
-export const deletePost = (id) => ({ type: DELETE_POST, id});
+export const deletePost = (id) => ({ type: DELETE_POST, id });
 
 export const updateNewPostText = (message) => ({
     type: UPDATE_TEXT_MESSAGE_POST, message
@@ -88,38 +88,30 @@ export const setPersonInfo = (personInfo) => ({
 });
 
 export const setStatus = (status) => ({
-    type: SET_STATUS,  status
+    type: SET_STATUS, status
 });
 
-export const getProfile = (id) => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true));
-        profileAPI.getProfileUser(id)
-            .then(response => {
-                dispatch(toggleIsFetching(false));
-                dispatch(setPersonInfo(response.data));
-            })
-    }
-};
+export const getProfile = (id) => async (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    let response = await profileAPI.getProfileUser(id)
+    dispatch(toggleIsFetching(false));
+    dispatch(setPersonInfo(response.data));
 
-export const getStatus = (id) => {
-    return (dispatch) => {
-        profileAPI.getStatusFriend(id)
-            .then(response => {
-                dispatch(setStatus(response.data));
-            })
-    }
-};
+}
 
-export const updateStatus = (status) => {
-    return (dispatch) => {
-        profileAPI.putStatusFriend(status)
-            .then(response => {
-                if (response.resultCode !== 0) {
-                    console.warn(`${response.messages}`);
-                }
-            })
+
+export const getStatus = (id) => async (dispatch) => {
+    let response = await profileAPI.getStatusFriend(id)
+    dispatch(setStatus(response.data));
+}
+
+
+export const updateStatus = (status) => async (dispatch) => {
+    let response = await profileAPI.putStatusFriend(status)
+    if (response.resultCode !== 0) {
+        console.warn(`${response.messages}`);
     }
-};
+}
+
 
 export default reducerProfile;

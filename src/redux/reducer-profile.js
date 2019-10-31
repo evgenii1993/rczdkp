@@ -1,6 +1,7 @@
 import { profileAPI } from "../api/profileAPI";
 
 const ADD_POST = 'ADD-POST';
+const DELETE_POST = 'DELETE-POST';
 const UPDATE_TEXT_MESSAGE_POST = 'UPDATE-TEXT-MESSAGE-POST';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const SET_PERSON_INFO = 'SET-PERSON-INFO';
@@ -31,6 +32,12 @@ const reducerProfile = (state = initialState, action) => {
                 ...state,
                 posts: [...state.posts, post]
             };
+        }
+        case DELETE_POST: {
+            return {
+                ...state,
+                posts: state.posts.filter((item) => item.id !== action.id)
+            }
         }
         case UPDATE_TEXT_MESSAGE_POST: {
             return {
@@ -65,6 +72,8 @@ const reducerProfile = (state = initialState, action) => {
 
 
 export const addPost = (messagePost) => ({ type: ADD_POST, messagePost: messagePost.messagePost});
+
+export const deletePost = (id) => ({ type: DELETE_POST, id});
 
 export const updateNewPostText = (message) => ({
     type: UPDATE_TEXT_MESSAGE_POST, message

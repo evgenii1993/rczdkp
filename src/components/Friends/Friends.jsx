@@ -1,63 +1,25 @@
 import React from "react";
-import  s  from "./Friends.module.css";
-import {NavLink} from "react-router-dom";
-import avaPhoto from './../../assets/avatar-man.png';
+import Pagination from "../common/Pagination/Pagination";
+import Friend from "./Friend/Friend";
 
-let Friend = (props) => {
-    let pagination = [];
-    let allPage = Math.ceil(props.totalCount / props.currentCountFriend);
-
-    for (let i = 1; i <= allPage; i++) {
-        pagination.push(i);
-    }
+let Friends = (props) => {
+   
 
     return (<div>
-        {
-            pagination.map(index => {
-                return (
-                    <span
-                        className={props.currentPage === index ? s.activePage : ""}
-                        onClick={(e) => { props.onPageChange(index) }}
-                        key={index}>
-                        {index}
-                    </span>
-                )
-            })
-        }
+        <Pagination totalCount={props.totalCount}
+                    currentCountFriend={props.currentCountFriend}
+                    currentPage={props.currentPage}
+                    onPageChange={props.onPageChange}
+                    />
         {props.friends.map(friend => {
             
             return (
-                <div key={friend.id} className={s.item}>
-                    <div className={s.panelControl}>
-                        <div className={s.imageWrap}>
-                            <NavLink to={`/profile/${friend.id}`}>
-                                <img src={friend.photos.small !== null ?
-                                     friend.photos.small : avaPhoto} className={s.img} />
-                            </NavLink>
-                        </div>
-                        {friend.followed ?
-                            <button onClick={() => { props.unFollowSuccess(friend.id) }} 
-                                    disabled={props.disabledFollowUsers.some((item) => {
-                                        return item === friend.id;
-                                    })}
-                                    className={`${s.button} ${s.unFollow}`}>Unfollow</button>
-                            :
-                            <button onClick={() => { props.followSuccess(friend.id) }} 
-                                    disabled={props.disabledFollowUsers.some((item) => {
-                                        return item === friend.id;
-                                    })}
-                                    className={`${s.button} ${s.follow}`}>Follow</button>
-                        }
-                    </div>
-                    <div className={s.panelInfo}>
-                        <span className={s.name}>{friend.name}</span>
-                        <span className={s.status}>{friend.status}</span>
-                        <div className={s.location}>
-                            <div className={s.country}>friend.address.country</div>
-                            <div className={s.city}>friend.address.city</div>
-                        </div>
-                    </div>
-                </div>
+                <Friend 
+                    friend={friend} 
+                    disabledFollowUsers={props.disabledFollowUsers}
+                    unFollowSuccess={props.unFollowSuccess}
+                    followSuccess={props.followSuccess}
+                />
             )
         })
         }
@@ -65,4 +27,4 @@ let Friend = (props) => {
     );
 }
 
-export default Friend;
+export default Friends;

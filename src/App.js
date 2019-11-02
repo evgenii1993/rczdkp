@@ -8,9 +8,10 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import { withRouter } from 'react-router';
 import { compose } from "redux";
-import { connect } from "react-redux";
+import {connect, Provider} from "react-redux";
+import store from './redux/store-redux';
 import FriendsContainer from './components/Friends/FriendsContainer';
-import { Route } from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login  from './components/Login/Login';
@@ -53,7 +54,17 @@ let mapStateToProps = (state) => {
     initialSuccess: state.app.initialSuccess
   } 
 } 
-export default compose(
+const ContainerApp = compose(
   withRouter,
   connect(mapStateToProps, { initialApp })
 )(App);
+
+const SamuraiJSApp = props => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <ContainerApp/>
+        </Provider>
+    </BrowserRouter>
+}
+
+export default SamuraiJSApp;

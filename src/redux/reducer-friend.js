@@ -20,7 +20,7 @@ let initialState = {
     totalCount: 20,
     isFetching: false,
     disabledFollowUsers: []
-}
+};
 
 const reducerFriend = (state = initialState, action) => {
 
@@ -87,7 +87,7 @@ const reducerFriend = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};
 
 
 export const follow = (id) => ({ type: FOLLOW_FRIEND, id: id });
@@ -106,11 +106,11 @@ export const getFriends = (currentPage, currentCountFriend) => async (dispatch) 
     dispatch(setCurrentPage(currentPage));
     dispatch(toggleIsFetching(true));
 
-    let data = await usersAPI.getUsers(currentPage, currentCountFriend)
+    let data = await usersAPI.getUsers(currentPage, currentCountFriend);
     dispatch(setFriends(data.items));
     dispatch(setTotalCount(data.totalCount));
     dispatch(toggleIsFetching(false));
-}
+};
 
 
 const followUnfollowFlow = async (dispatch, id, apiMethod, actionCreater) => {
@@ -120,15 +120,15 @@ const followUnfollowFlow = async (dispatch, id, apiMethod, actionCreater) => {
         dispatch(actionCreater(id));
     }
     dispatch(toggleIsFetchingFollowRemove(id));
-}
+};
 
 export const unFollowSuccess = (id) => async (dispatch) => {
     followUnfollowFlow(dispatch, id, usersAPI.unFollow.bind(usersAPI), unFollow);
-}
+};
 
 export const followSuccess = (id) => async (dispatch) => {
     followUnfollowFlow(dispatch, id, usersAPI.follow.bind(usersAPI), follow);
-}
+};
 
 
 export default reducerFriend;

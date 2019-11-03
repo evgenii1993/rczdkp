@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 const Friend = ({friend, unFollowSuccess, followSuccess,  disabledFollowUsers}) => {
     return (
-        <div key={friend.id} className={s.item}>
+        <div className={s.item}>
             <div className={s.panelControl}>
                 <div className={s.imageWrap}>
                     <NavLink to={`/profile/${friend.id}`}>

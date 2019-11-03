@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import { follow, unFollow, 
     setCurrentCountFriend, 
     toggleIsFetchingFollowAdd, toggleIsFetchingFollowRemove, getFriends, followSuccess, unFollowSuccess  } from '../../redux/reducer-friend';
@@ -8,14 +8,14 @@ import { connect } from "react-redux";
 import Preloader from "./../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { getFriends as getFriendsSelector, getCurrentCountFriend, getCurrentPage, getTotalCount, getIsFetching, getDisabledFollowUsers } from "./../../redux/selects/selectorFriend";
-class FriendsContainer extends Component {
+class FriendsContainer extends PureComponent {
     componentDidMount() {
         this.props.getFriends(this.props.currentPage, this.props.currentCountFriend);   
     }
     
     onPageChange = (numberPage) => {
         this.props.getFriends(numberPage, this.props.currentCountFriend);
-    } 
+    };
 
     render() {
        
@@ -27,6 +27,7 @@ class FriendsContainer extends Component {
                     <Friends 
                         totalCount={this.props.totalCount}
                         currentCountFriend={this.props.currentCountFriend}
+                        setCurrentCountFriend={this.props.setCurrentCountFriend}
                         currentPage={this.props.currentPage}
                         onPageChange={this.onPageChange}
                         friends={this.props.friends}
@@ -54,7 +55,7 @@ let mapStateToProps = (state) => {
         isFetching: getIsFetching(state),
         disabledFollowUsers: getDisabledFollowUsers(state)
     }
-}
+};
 
 
 export default compose(

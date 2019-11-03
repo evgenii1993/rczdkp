@@ -1,0 +1,33 @@
+.selectMenuWrapper {
+    position: relative;
+}
+.selectMenu {
+    display: inline-flex;
+    height: 30px;
+    width: auto;
+    border: 1px solid #CCC;
+}
+.button {
+    background: blue;
+    color: #FFF;
+}
+.selectItem {
+    padding: 5px 10px;
+}
+.selectMenuList {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    background: #FFF;
+    z-index: 1;
+}
+.open {
+    display: block;
+}
+.close {
+    display: none;
+}
+.activeItem {
+    background: lightgreen;
+}

@@ -10,11 +10,13 @@ let Friends = (props) => {
                     currentCountFriend={props.currentCountFriend}
                     currentPage={props.currentPage}
                     onPageChange={props.onPageChange}
+                    changeCount={props.setCurrentCountFriend}
                     />
         {props.friends.map(friend => {
             
             return (
-                <Friend 
+                <Friend
+                    key={friend.id}
                     friend={friend} 
                     disabledFollowUsers={props.disabledFollowUsers}
                     unFollowSuccess={props.unFollowSuccess}
@@ -25,6 +27,6 @@ let Friends = (props) => {
         }
     </div>
     );
-}
+};
 
 export default Friends;

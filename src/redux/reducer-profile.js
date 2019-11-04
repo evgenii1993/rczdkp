@@ -6,6 +6,7 @@ const UPDATE_TEXT_MESSAGE_POST = 'rczdkp/reducer-profile/UPDATE-TEXT-MESSAGE-POS
 const TOGGLE_IS_FETCHING = 'rczdkp/reducer-profile/TOGGLE-IS-FETCHING';
 const SET_PERSON_INFO = 'rczdkp/reducer-profile/SET-PERSON-INFO';
 const SET_STATUS = 'rczdkp/reducer-profile/SET-STATUS';
+const SET_AVATAR = 'rczdkp/reducer-profile/SET-AVATAR';
 
 let initialState = {
     posts: [
@@ -17,7 +18,7 @@ let initialState = {
     personInfo: null,
     isFetching: false,
     status: ""
-}
+};
 
 const reducerProfile = (state = initialState, action) => {
 
@@ -59,6 +60,20 @@ const reducerProfile = (state = initialState, action) => {
             }
         }
 
+        case SET_AVATAR: {
+            debugger
+            return {
+                ...state,
+                personInfo: {...state.personInfo,
+                        photos: {
+                            ...state.personInfo.photos,
+                            large: action.avatar.photos.large,
+                            small: action.avatar.photos.small,
+                        }
+                    }
+            }
+        }
+
         case SET_STATUS: {
             return {
                 ...state,
@@ -91,19 +106,34 @@ export const setStatus = (status) => ({
     type: SET_STATUS, status
 });
 
+export const setAvatarSuccess = (avatar) => ({
+    type: SET_AVATAR, avatar
+});
+
+
+
 export const getProfile = (id) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
     let response = await profileAPI.getProfileUser(id)
     dispatch(toggleIsFetching(false));
     dispatch(setPersonInfo(response.data));
 
-}
+};
 
 
 export const getStatus = (id) => async (dispatch) => {
     let response = await profileAPI.getStatusFriend(id)
     dispatch(setStatus(response.data));
-}
+};
+
+export const setAvatar = (file) => async (dispatch) => {
+    let response = await profileAPI.putAvatar(file)
+
+    debugger
+        dispatch(setAvatarSuccess(response.data.data));
+
+    console.log(response.data);
+};
 
 
 export const updateStatus = (status) => async (dispatch) => {
@@ -111,7 +141,7 @@ export const updateStatus = (status) => async (dispatch) => {
     if (response.resultCode !== 0) {
         console.warn(`${response.messages}`);
     }
-}
+};
 
 
 export default reducerProfile;

@@ -10,7 +10,12 @@ const Profile = (props) => {
     if (!props.personInfo) {
         return <Preloader />
     }
-    
+
+    const onChangeAvatarImage = (e) => {
+        if (e.target.files.length) {
+            props.setAvatar(e.target.files[0]);
+        }
+    };
     
     let listIcons = Object.entries(props.personInfo.contacts).map(([key, value], index) => {
         return value ? <a   href={value.startsWith("http://") || value.startsWith("https://") ? value : `http://${value}`} 
@@ -33,6 +38,7 @@ const Profile = (props) => {
                         }
                         className={s.avatar}
                     />
+                    {props.isOwner && <input type="file" onChange={onChangeAvatarImage} />}
                 </div>
                 <ProfileStatus status={props.status} id={props.personInfo.userId} getStatus={props.getStatus} updateStatus={props.updateStatus}/>
                 <div className={s.listLink}>

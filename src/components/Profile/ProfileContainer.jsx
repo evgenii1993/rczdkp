@@ -7,22 +7,32 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import {updateStatus} from "../../redux/reducer-profile";
+import {setAvatar, updateStatus} from "../../redux/reducer-profile";
 
 
 
 class ProfileContainer  extends Component {
-    
-    componentDidMount() {    
-        
+
+    refreshProfile() {
         let idFriend = this.props.match.params.idFriend;
-        
+
         if (!idFriend) {
             idFriend = 1417;
         }
-
         this.props.getProfile(idFriend);
     }
+    
+    componentDidMount() {    
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        let id = this.props.match.params.idFriend;
+        if (!id && id != prevProps.match.params.idFriend) {
+            this.refreshProfile();
+        }
+    }
+
     render () {
         return (
             <>
@@ -32,9 +42,11 @@ class ProfileContainer  extends Component {
                         :
                         <>
                             <Profile personInfo={this.props.personInfo}
+                                     isOwner={!this.props.match.params.idFriend}
                                      status={this.props.status}
                                      getStatus={this.props.getStatus}
                                      updateStatus={this.props.updateStatus}
+                                     setAvatar={this.props.setAvatar}
                             />
                             <MyPost 
                                 addPost={this.props.addPost}
@@ -66,7 +78,8 @@ export default compose(
         addPost, updateNewPostText, 
         getProfile,
         getStatus,
-        updateStatus
+        updateStatus,
+        setAvatar
     }),
     withRouter,
     withAuthRedirect

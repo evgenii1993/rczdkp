@@ -9,5 +9,15 @@ export const profileAPI = {
     },
     putStatusFriend(status = "") {
         return instanceAxios.put(`profile/status/`, {status});
+    },
+    putAvatar(avatar) {
+        let formData = new FormData();
+        formData.append('file', avatar);
+
+        return instanceAxios.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 };

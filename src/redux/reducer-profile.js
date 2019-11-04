@@ -61,7 +61,7 @@ const reducerProfile = (state = initialState, action) => {
         }
 
         case SET_AVATAR: {
-            debugger
+
             return {
                 ...state,
                 personInfo: {...state.personInfo,
@@ -129,8 +129,7 @@ export const getStatus = (id) => async (dispatch) => {
 export const setAvatar = (file) => async (dispatch) => {
     let response = await profileAPI.putAvatar(file)
 
-    debugger
-        dispatch(setAvatarSuccess(response.data.data));
+    dispatch(setAvatarSuccess(response.data.data));
 
     console.log(response.data);
 };

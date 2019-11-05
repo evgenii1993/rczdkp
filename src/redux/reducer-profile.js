@@ -7,6 +7,7 @@ const TOGGLE_IS_FETCHING = 'rczdkp/reducer-profile/TOGGLE-IS-FETCHING';
 const SET_PERSON_INFO = 'rczdkp/reducer-profile/SET-PERSON-INFO';
 const SET_STATUS = 'rczdkp/reducer-profile/SET-STATUS';
 const SET_AVATAR = 'rczdkp/reducer-profile/SET-AVATAR';
+const EDIT_PROFILE = 'rczdkp/reducer-profile/EDIT_PROFILE';
 
 let initialState = {
     posts: [
@@ -17,6 +18,7 @@ let initialState = {
     ],
     personInfo: null,
     isFetching: false,
+    editProfile: false,
     status: ""
 };
 
@@ -80,11 +82,18 @@ const reducerProfile = (state = initialState, action) => {
                 status: action.status
             }
         }
+        case EDIT_PROFILE: {
+            return {
+                ...state,
+                status: action.editProfile
+            }
+        }
         default:
             return state;
     }
 }
 
+export const editProfile = (editProfile) => ({ type: EDIT_PROFILE, editProfile});
 
 export const addPost = (messagePost) => ({ type: ADD_POST, messagePost: messagePost.messagePost });
 

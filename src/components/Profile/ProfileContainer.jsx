@@ -68,6 +68,7 @@ let mapStateToProps = (state) => {
         textMessage: state.profilePage.textMessage,
         isFetching: state.profilePage.isFetching,
         personInfo: state.profilePage.personInfo,
+        editProfile: state.profilePage.editProfile,
         status: state.profilePage.status
     }
 }

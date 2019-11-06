@@ -83,9 +83,10 @@ const reducerProfile = (state = initialState, action) => {
             }
         }
         case EDIT_PROFILE: {
+            
             return {
                 ...state,
-                status: action.editProfile
+                editProfile: action.editProfile
             }
         }
         default:
@@ -93,7 +94,7 @@ const reducerProfile = (state = initialState, action) => {
     }
 }
 
-export const editProfile = (editProfile) => ({ type: EDIT_PROFILE, editProfile});
+export const setEditProfile = (editProfile) => ({ type: EDIT_PROFILE, editProfile});
 
 export const addPost = (messagePost) => ({ type: ADD_POST, messagePost: messagePost.messagePost });
 

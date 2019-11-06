@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { addPost, updateNewPostText, getProfile, getStatus } from './../../redux/reducer-profile';
+import { addPost, updateNewPostText, getProfile, getStatus, setEditProfile } from './../../redux/reducer-profile';
 import Profile from './Profile/Profile';
 import MyPost from './MyPosts/MyPost';
 import { withRouter, Redirect } from 'react-router';
@@ -47,6 +47,8 @@ class ProfileContainer  extends Component {
                                      getStatus={this.props.getStatus}
                                      updateStatus={this.props.updateStatus}
                                      setAvatar={this.props.setAvatar}
+                                     editProfile={this.props.editProfile}
+                                     setEditProfile={this.props.setEditProfile}
                             />
                             <MyPost 
                                 addPost={this.props.addPost}
@@ -80,7 +82,8 @@ export default compose(
         getProfile,
         getStatus,
         updateStatus,
-        setAvatar
+        setAvatar,
+        setEditProfile
     }),
     withRouter,
     withAuthRedirect

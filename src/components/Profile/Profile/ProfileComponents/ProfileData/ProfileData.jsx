@@ -2,8 +2,10 @@ import React from 'react';
 import s from './ProfileData.module.css';
 
 const ProfileData = (props) => {
+    
     return (
         <>
+            <button onClick={() => props.setEditProfile(true)}>edit mode</button>
             <h3>{props.personInfo.fullName}</h3>
             <div className="row">
                 <div className="col-md-1">

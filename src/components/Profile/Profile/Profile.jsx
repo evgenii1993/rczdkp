@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import s from "./Profile.module.css";
 import ProfileStatus from "./ProfileStatus";
@@ -8,8 +7,11 @@ import ProfileData from "./ProfileComponents/ProfileData/ProfileData";
 import ProfileDataEdit from "./ProfileComponents/ProfileDataEdit/ProfileDataEdit";
 
 
-
 const Profile = (props) => {
+    const setFormEdit = values => {
+        console.log(values, "   values setFormEdit");
+    }
+
     if (!props.personInfo) {
         return <Preloader />
     }
@@ -21,10 +23,9 @@ const Profile = (props) => {
                 <ProfileAvatar personInfo={props.personInfo} setAvatar={props.setAvatar} isOwner={props.isOwner}/>
                 <ProfileStatus status={props.status} id={props.personInfo.userId} getStatus={props.getStatus} updateStatus={props.updateStatus}/>
                 
-                
             </div>
             <div className={s.rightPanel}>
-                { !props.editProfile ? <ProfileData {...props}/> : <ProfileDataEdit {...props}/>}
+                { !props.editProfile ? <ProfileData {...props}/> : <ProfileDataEdit {...props} onSubmit={setFormEdit} initialValues={props.personInfo}/>}
             </div>
 
         </section>

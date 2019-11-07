@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 
 
 let ProfileDataEdit = (props) => {
+    let hasError = props.touch && props.error; 
     const {handleSubmit} = props;
     return (
         <form onSubmit={handleSubmit}>
@@ -78,6 +79,7 @@ let ProfileDataEdit = (props) => {
                         component="input" 
                         type="text" />
             </div>
+            { hasError && <div style={{color: "brown"}}>{props.error}</div> }
             <button type="submit">save</button>
         </form>
     );

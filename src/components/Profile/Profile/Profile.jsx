@@ -10,6 +10,7 @@ import ProfileDataEdit from "./ProfileComponents/ProfileDataEdit/ProfileDataEdit
 const Profile = (props) => {
     const setFormEdit = values => {
         console.log(values, "   values setFormEdit");
+        props.updateDataProfile(values);
     }
 
     if (!props.personInfo) {

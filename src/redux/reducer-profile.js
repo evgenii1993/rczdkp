@@ -1,4 +1,6 @@
 import { profileAPI } from "../api/profileAPI";
+import { stopSubmit } from "redux-form";
+import { getArrayFields } from "../utils/parserResponseError";
 
 const ADD_POST = 'rczdkp/reducer-profile/ADD-POST';
 const DELETE_POST = 'rczdkp/reducer-profile/DELETE-POST';
@@ -152,5 +154,21 @@ export const updateStatus = (status) => async (dispatch) => {
     }
 };
 
+export const updateDataProfile = (data) => async (dispatch) => {
+    let response = await profileAPI.putDataProfile(data);
+    
+    if (response.data.resultCode === 0) {
+        dispatch(setEditProfile(false));
+    } else {
+        console.log(getArrayFields(response.data.messages));
+        if (response.data.messages.length > 0) {
+            dispatch(stopSubmit("profileData", { _error: response.data.messages }));
+        } else {
+            dispatch(stopSubmit("profileData", { _error: "some error" }));
+        }
+        
+        console.warn(response, " ___warn");
+    }
+} 
 
 export default reducerProfile;

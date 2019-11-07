@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { addPost, updateNewPostText, getProfile, getStatus, setEditProfile } from './../../redux/reducer-profile';
+import { addPost, updateNewPostText, getProfile, getStatus, setEditProfile, updateDataProfile } from './../../redux/reducer-profile';
 import Profile from './Profile/Profile';
 import MyPost from './MyPosts/MyPost';
-import { withRouter, Redirect } from 'react-router';
+import { withRouter } from 'react-router';
 import { compose } from "redux";
 import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
@@ -47,6 +47,7 @@ class ProfileContainer  extends Component {
                                      getStatus={this.props.getStatus}
                                      updateStatus={this.props.updateStatus}
                                      setAvatar={this.props.setAvatar}
+                                     updateDataProfile={this.props.updateDataProfile}
                                      editProfile={this.props.editProfile}
                                      setEditProfile={this.props.setEditProfile}
                             />
@@ -83,6 +84,7 @@ export default compose(
         getStatus,
         updateStatus,
         setAvatar,
+        updateDataProfile,
         setEditProfile
     }),
     withRouter,

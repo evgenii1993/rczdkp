@@ -8,7 +8,9 @@ import { connect } from "react-redux";
 import Preloader from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import {setAvatar, updateStatus} from "../../redux/reducer-profile";
-
+import {
+    stopSubmit as stopSubmitAction,
+  } from 'redux-form';
 
 
 class ProfileContainer  extends Component {
@@ -85,7 +87,8 @@ export default compose(
         updateStatus,
         setAvatar,
         updateDataProfile,
-        setEditProfile
+        setEditProfile,
+        stopSubmit: stopSubmitAction
     }),
     withRouter,
     withAuthRedirect

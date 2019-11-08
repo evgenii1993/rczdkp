@@ -5,7 +5,7 @@ const ProfileData = (props) => {
     
     return (
         <>
-            <button onClick={() => props.setEditProfile(true)}>edit mode</button>
+            { props.isOwner && <button onClick={() => props.setEditProfile(true)}>edit mode</button> }
             <h3>{props.personInfo.fullName}</h3>
             <div className="row">
                 <div className="col-md-1">

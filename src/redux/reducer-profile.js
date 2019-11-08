@@ -162,8 +162,10 @@ export const updateDataProfile = (data) => async (dispatch) => {
     } else {
         console.log(getArrayFields(response.data.messages));
         if (response.data.messages.length > 0) {
-            dispatch(stopSubmit("profileData", { _error: response.data.messages }));
+            console.log("1111111111111", response.data.messages);
+            dispatch(stopSubmit("profileData", {"AboutMe": response.data.messages[0], _error: "wwwww" }));
         } else {
+            console.log("2222222222222");
             dispatch(stopSubmit("profileData", { _error: "some error" }));
         }
         

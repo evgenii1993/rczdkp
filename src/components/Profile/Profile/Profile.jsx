@@ -26,7 +26,8 @@ const Profile = (props) => {
                 
             </div>
             <div className={s.rightPanel}>
-                { !props.editProfile ? <ProfileData {...props}/> : <ProfileDataEdit {...props} onSubmit={setFormEdit} initialValues={props.personInfo}/>}
+                { props.isOwner && props.editProfile && <ProfileDataEdit {...props} onSubmit={setFormEdit} initialValues={props.personInfo}/>}
+                { !props.editProfile && <ProfileData {...props}/> }
             </div>
 
         </section>
